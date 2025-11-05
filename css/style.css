@@ -22,8 +22,13 @@ body {
     align-items: center;
     justify-content: space-between;
     /* ENDRING: Justert fra 0.95 til 0.85 for mer gjennomsiktighet */
-    background: rgba(10, 10, 10, 0.65);
+    background: rgba(10, 10, 10, 0.85);
     padding: 10px clamp(10px, 4vw, 60px); /* dynamisk padding */
+    
+    /* FORSLAG 1: Legg til "frostet glass"-effekt */
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    
     position: fixed;
     top: 0;
     width: 100%;
@@ -79,6 +84,12 @@ body {
 
 .nav-links a:hover {
     color: #00bfff;
+}
+
+/* FORSLAG 2: Stil for aktiv navigasjonslenke */
+.nav-links a.active {
+    color: #00bfff; /* Samme som hover-fargen */
+    font-weight: 700; /* Gjør den litt dristigere */
 }
 
 /* --- HERO-SEKSJON (FORSIDE) --- */
@@ -192,6 +203,11 @@ main {
     width: 280px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    /* FORSLAG 1: "Frostet glass"-effekt for team-kort */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
 }
 
 .team-member:hover {
@@ -293,6 +309,20 @@ main {
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     line-height: 1.7;
     font-size: 1.05em;
+
+    /* FORSLAG 1: "Frostet glass"-effekt for innholdskort */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+
+    /* FORSLAG 3: Gjør kortet klart for hover-animasjon */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* FORSLAG 3: Legg til hover-effekt på innholdskort */
+.content-card:hover {
+    transform: translateY(-3px); /* Løfter seg litt */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
 }
 
 .content-card h2, 
@@ -361,6 +391,11 @@ main {
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+    /* FORSLAG 1: "Frostet glass"-effekt for kontaktskjema */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
 }
     
 .contact-page label {
