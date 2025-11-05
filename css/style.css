@@ -22,7 +22,7 @@ body {
     align-items: center;
     justify-content: space-between;
     /* ENDRING: Justert fra 0.95 til 0.85 for mer gjennomsiktighet */
-    background: rgba(10, 10, 10, 0.85);
+    background: rgba(10, 10, 10, 0.65);
     padding: 10px clamp(10px, 4vw, 60px); /* dynamisk padding */
     position: fixed;
     top: 0;
