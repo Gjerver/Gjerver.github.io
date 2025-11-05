@@ -148,6 +148,18 @@ main {
     .hero-text {
         text-align: center;
     }
+
+    /* LØSNINGEN ER HER:
+       Når nav-baren stabler seg (blir "column"), er den høyere.
+       Vi må øke padding-top på alle innholdssider 
+       for å dytte innholdet lenger ned, kun på mobil.
+    */
+    .page-content,
+    .team-section,
+    .contact-page {
+        /* Øker fra 120px til 170px (juster ved behov) */
+        padding-top: 170px; 
+    }
 }
 
 /* --- TEAM SECTION --- */
@@ -424,7 +436,10 @@ main {
 /* Responsiv fiks for kontaktside */
 @media (max-width: 768px) {
     .contact-page {
-        padding-top: 110px;
+        /* Denne regelen er nå håndtert av 900px-regelen over,
+           så vi kan fjerne den for å unngå konflikter.
+        */
+        /* padding-top: 110px; */ 
     }
     .contact-page form {
         padding: 30px 20px;
