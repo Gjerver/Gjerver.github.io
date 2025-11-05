@@ -186,7 +186,12 @@ main {
     box-shadow: 0 6px 16px rgba(0,0,0,0.5);
 }
 
-.team-member img {
+/* ENDRINGEN ER HER:
+   Vi har endret fra ".team-member img" til ".team-member > img".
+   Dette gjør at "width: 100%" KUN gjelder profilbildet, 
+   og ikke .social-icon som ligger dypere.
+*/
+.team-member > img {
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -233,8 +238,8 @@ main {
 
 /* Selve LinkedIn-ikonet */
 .social-icon {
-    width: 12px;  /* Justert størrelse */
-    height: 12px; /* Justert størrelse */
+    width: 24px;  /* Justert størrelse */
+    height: 24px; /* Justert størrelse */
     border-radius: 4px;
     transition: opacity 0.2s ease, transform 0.2s ease;
     opacity: 0.75;
