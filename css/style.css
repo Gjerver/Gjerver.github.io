@@ -169,3 +169,87 @@ main {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* --- CONTACT SECTION --- */
+.contact-section {
+    padding-top: 120px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.contact-section h2 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.contact-intro {
+    color: #ccc;
+    margin-bottom: 40px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.contact-form label {
+    text-align: left;
+    font-weight: 500;
+    color: #ddd;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px;
+    font-size: 1em;
+    resize: none;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #aaa;
+}
+
+.contact-form button {
+    background: #00bfff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+    background: #00a0d1;
+    transform: translateY(-2px);
+}
+
+.contact-extra {
+    margin-top: 40px;
+    color: #ccc;
+}
+
+.contact-extra a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+.contact-extra a:hover {
+    text-decoration: underline;
+}

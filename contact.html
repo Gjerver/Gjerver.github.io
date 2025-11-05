@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt oss | eldION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="fade-in">
+    <header class="navbar">
+        <div class="logo-section">
+            <a href="index.html" class="home-link">
+                <img src="images/logo2.png" alt="eldION logo" class="logo">
+            </a>
+            <div class="logo-text">
+                <h1>eldION</h1>
+                <p class="subtitle">Fra ild til ladning</p>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="about.html">Om oss</a>
+            <a href="goal.html">Vårt mål</a>
+            <a href="team.html">Teamet</a>
+            <a href="news.html">Nyheter</a>
+            <a href="contact.html" class="active">Kontakt oss</a>
+        </nav>
+    </header>
+
+    <main class="contact-section">
+        <h2>Kontakt oss</h2>
+        <p class="contact-intro">
+            Vi ønsker å høre fra deg! Fyll ut skjemaet under, så tar vi kontakt så snart som mulig.
+        </p>
+
+        <form class="contact-form" action="https://formsubmit.co/Vetle@eldion.no" method="POST">
+            <!-- Ekstra skjulte felt for videresending -->
+            <input type="hidden" name="_cc" value="Christoffer@eldion.no,Joar@eldion.no">
+            <input type="hidden" name="_subject" value="Ny henvendelse fra eldION.no">
+            <input type="hidden" name="_captcha" value="false">
+
+            <label for="topic">Hva gjelder henvendelsen?</label>
+            <select id="topic" name="topic" required>
+                <option value="">Velg kategori...</option>
+                <option value="investering">Investering</option>
+                <option value="samarbeid">Samarbeid</option>
+                <option value="pilotprosjekt">Pilotprosjekt / testing</option>
+                <option value="kundeforespørsel">Kundeforespørsel</option>
+                <option value="teknisk">Teknisk spørsmål</option>
+                <option value="annet">Annet</option>
+            </select>
+
+            <label for="name">Hvem er du?</label>
+            <input type="text" id="name" name="name" placeholder="Navn eller organisasjon" required>
+
+            <label for="email">E-postadresse</label>
+            <input type="email" id="email" name="email" placeholder="Din e-post" required>
+
+            <label for="message">Melding</label>
+            <textarea id="message" name="message" rows="5" placeholder="Skriv meldingen din her..." required></textarea>
+
+            <button type="submit">Send melding</button>
+        </form>
+
+        <div class="contact-extra">
+            <p>Du kan også nå oss direkte:</p>
+            <p><strong>Telefon:</strong> +47 400 00 000</p>
+            <p><strong>E-post:</strong> <a href="mailto:Vetle@eldion.no">Vetle@eldion.no</a></p>
+        </div>
+    </main>
+</body>
+</html>
