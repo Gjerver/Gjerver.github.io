@@ -241,3 +241,45 @@ main {
     border-radius: 8px;
     border-left: 4px solid #00bfff;
 }
+
+/* --- TILLEGG FOR TEAM-SIDEN --- */
+
+/* Stil for e-postlenken */
+.team-member .team-email {
+    font-size: 0.95em;
+    margin: -5px 0 10px 0; /* Plasserer den tettere under navnet */
+    color: #ccc;
+    font-weight: 500;
+}
+
+.team-member .team-email a {
+    color: #00bfff; /* Bruker en farge som matcher designet */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.team-member .team-email a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Container for sosiale medier-ikoner */
+.social-links {
+    margin-top: 20px; /* Luft mellom bio og ikon */
+    text-align: center;
+}
+
+/* Selve LinkedIn-ikonet */
+.social-icon {
+    width: 32px; /* Liten, diskret størrelse */
+    height: 32px;
+    border-radius: 5px; /* Lett avrundede hjørner */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0.75; /* Litt dempet som standard */
+}
+
+/* Hover-effekt på ikonet */
+.social-links a:hover .social-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
