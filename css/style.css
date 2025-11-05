@@ -3,22 +3,17 @@ body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    /* --- ENDRING START --- */
-    /* Bytter ut gradient med et bakgrunnsbilde */
-    /* Den gamle koden var: background: linear-gradient(135deg, #555555, #050505); */
-    
-    /* Antar at fjell.jpg ligger i 'images'-mappen, og css-filen i 'css'-mappen */
+    /* Bakgrunnsbilde-innstillinger */
     background-image: url('../images/fjell.jpg'); 
-    background-size: cover;           /* Dekker hele skjermflaten */
-    background-position: center;      /* Sentrerer bildet */
-    background-attachment: fixed;     /* Bildet står stille når man scroller */
-    background-repeat: no-repeat;   /* Forhindrer at bildet gjentas */
+    background-size: cover;         /* Dekker hele skjermflaten */
+    background-position: center;    /* Sentrerer bildet */
+    background-attachment: fixed;   /* Bildet står stille når man scroller */
+    background-repeat: no-repeat; /* Forhindrer at bildet gjentas */
     
-    /* Legger til en mørk bakgrunnsfarge som fallback hvis bildet ikke laster */
+    /* Fallback-farge hvis bildet ikke laster */
     background-color: #050505; 
-    /* --- ENDRING SLUTT --- */
     
-    color: #fff; /* Beholder hvit tekstfarge */
+    color: #fff; /* Hvit tekstfarge */
 }
 
 /* --- NAVBAR --- */
@@ -85,55 +80,47 @@ body {
     color: #00bfff;
 }
 
-/* --- HERO IMAGE --- */
+/* --- HERO-SEKSJON (FORSIDE) --- */
 main {
     padding-top: 90px; /* plass til navbar */
 }
 
 .hero-image {
     display: flex;
-    /* ENDRET: Posisjonerer innholdet nede til høyre */
     justify-content: flex-end;  /* Høyre */
     align-items: flex-end;      /* Bunn */
     height: calc(100vh - 90px);
-    /* LAGT TIL: Padding for å gi luft fra kantene */
     padding: 4vw;
     box-sizing: border-box;
 }
 
-/* FJernet .hero-image img {...} regelen */
-
-/* LAGT TIL: Stiler for den nye teksten */
 .hero-text {
     font-family: 'Inter', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.8rem); /* Responsiv størrelse */
     font-weight: 600;
-    color: #E0E0E0; /* Lys grå (mye mer lesbar enn mørk) */
+    color: #E0E0E0; /* Lys grå */
     text-align: right;
-    max-width: 600px; /* Begrenser bredde for penere linjebryting */
+    max-width: 600px; /* Begrenser bredde */
     line-height: 1.4;
-    /* Gir en "misty" look og hjelper med lesbarhet */
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); 
     
-    /* Animasjon */
     animation: mistyFadeIn 2.5s ease-out forwards;
     opacity: 0; /* Starter usynlig */
 }
 
-/* LAGT TIL: Keyframes for "tåke"-animasjonen */
+/* Animasjon for "tåke"-tekst */
 @keyframes mistyFadeIn {
     from {
         opacity: 0;
-        filter: blur(8px); /* Starter tåkete */
-        transform: translateX(30px); /* Starter litt til høyre */
+        filter: blur(8px);
+        transform: translateX(30px);
     }
     to {
         opacity: 1;
-        filter: blur(0); /* Fader til skarp */
-        transform: translateX(0); /* Lander på sin plass */
+        filter: blur(0);
+        transform: translateX(0);
     }
 }
-
 
 /* --- RESPONSIVITET --- */
 @media (max-width: 900px) {
@@ -152,15 +139,13 @@ main {
         margin: 5px 0;
     }
 
-    /* --- NYE MOBIL-REGLER FOR HERO --- */
+    /* Mobil-fiks for hero-tekst */
     .hero-image {
-        /* Sentrerer innholdet (teksten) på mobil */
         justify-content: center;
         align-items: center;
     }
 
     .hero-text {
-        /* Sentrerer selve teksten */
         text-align: center;
     }
 }
@@ -218,125 +203,39 @@ main {
     color: #ccc;
 }
 
-/* --- PAGE FADE-IN ANIMATION --- */
-.fade-in {
-    animation: fadeIn 0.6s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* --- STILER FOR INNHOLDSSIDER (f.eks. goal.html) --- */
-/* Du kan legge dette nederst i style.css */
-
-/*
-* En generell container for sider som ikke har et "hero image".
-* Den legger til nødvendig padding fra toppen (pga. fixed navbar)
-* og sentrerer innholdet.
-*/
-.page-content {
-    padding-top: 120px; /* Plass til navbar (90px) + litt luft (30px) */
-    padding-bottom: 40px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-/*
-* Selve "kortet" som inneholder teksten.
-* Gjenbruker designet fra .team-member, men gjør det større.
-*/
-.content-card {
-    max-width: 900px; /* God lesebredde for tekst */
-    width: 90%;       /* Responsiv bredde */
-    background: rgba(255, 255, 255, 0.05); /* Samme som .team-member */
-    border-radius: 12px;
-    padding: clamp(25px, 5vw, 45px); /* Dynamisk padding */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    line-height: 1.7; /* Gjør lang tekst mer lesbar */
-    font-size: 1.05em;
-}
-
-/* Stiler for overskriftene inne i kortet */
-.content-card h2, 
-.content-card h3 {
-    font-family: 'Comfortaa', sans-serif;
-}
-
-.content-card h2 {
-    font-size: clamp(1.8em, 4vw, 2.2em); /* Responsiv font-størrelse */
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #00bfff; /* Bruker hover-fargen fra nav-links for å skape blikkfang */
-    line-height: 1.3;
-}
-
-.content-card h3 {
-    font-size: clamp(1.3em, 3vw, 1.6em);
-    margin-top: 35px; /* Mer luft over H3 */
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.content-card p {
-    color: #ddd; /* Litt lysere for bedre kontrast/lesbarhet */
-    margin-bottom: 15px;
-}
-
-/* Ekstra "fancy" triks: Fremhev den siste setningen */
-.content-card .highlight {
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #fff;
-    text-align: center;
-    margin-top: 30px;
-    padding: 15px;
-    background: rgba(0, 191, 255, 0.1); /* Lett farget bakgrunn */
-    border-radius: 8px;
-    border-left: 4px solid #00bfff;
-}
-
-/* --- TILLEGG FOR TEAM-SIDEN --- */
-
 /* Stil for e-post-paragrafen */
 .team-member .team-email {
-    font-size: 0.9em; /* Litt mindre og nettere */
+    font-size: 0.9em;
     margin: -5px 0 10px 0;
-    color: #aaa; /* Dusere farge */
+    color: #aaa;
     font-weight: 500;
-    font-style: italic; /* Gjør den kursiv */
+    font-style: italic;
 }
 
 /* Stil for selve e-post-lenken */
 .team-member .team-email a {
-    color: #ccc; /* Mer subtil lenkefarge som standard */
+    color: #ccc;
     text-decoration: none;
-    transition: color 0.2s ease, text-shadow 0.2s ease; /* Lagt til text-shadow */
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
-/* Hover-effekt for e-post-lenken */
 .team-member .team-email a:hover {
-    color: #00bfff; /* Blir knallblå */
+    color: #00bfff;
     text-decoration: underline;
-    /* "Stilig" effekt: Legger til en lett "glow" */
     text-shadow: 0 0 6px rgba(0, 191, 255, 0.6);
 }
 
 /* Container for sosiale medier-ikoner */
 .social-links {
-    margin-top: 20px; /* Luft mellom bio og ikon */
+    margin-top: 20px;
     text-align: center;
 }
 
 /* Selve LinkedIn-ikonet */
 .social-icon {
-    width: 24px;  /* ENDRET: fra 32px */
-    height: 24px; /* ENDRET: fra 32px */
-    border-radius: 4px; /* Litt mindre avrunding, passer størrelsen */
+    width: 24px;  /* Justert størrelse */
+    height: 24px; /* Justert størrelse */
+    border-radius: 4px;
     transition: opacity 0.2s ease, transform 0.2s ease;
     opacity: 0.75;
 }
@@ -347,16 +246,80 @@ main {
     transform: scale(1.1);
 }
 
-/* --- STILER FOR KONTAKTSIDE --- */
+/* --- PAGE FADE-IN ANIMATION --- */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
 
-/* Gjør 'main'-elementet om til 'contact-page' for å unngå konflikt */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- STILER FOR INNHOLDSSIDER (f.eks. goal.html) --- */
+.page-content {
+    padding-top: 120px;
+    padding-bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.content-card {
+    max-width: 900px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: clamp(25px, 5vw, 45px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    line-height: 1.7;
+    font-size: 1.05em;
+}
+
+.content-card h2, 
+.content-card h3 {
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.content-card h2 {
+    font-size: clamp(1.8em, 4vw, 2.2em);
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #00bfff;
+    line-height: 1.3;
+}
+
+.content-card h3 {
+    font-size: clamp(1.3em, 3vw, 1.6em);
+    margin-top: 35px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.content-card p {
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.content-card .highlight {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(0, 191, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #00bfff;
+}
+
+/* --- STILER FOR KONTAKTSIDE --- */
 .contact-page {
     max-width: 700px;
-    /* Bruk 'padding-top' lik de andre sidene for å få plass til navbar */
     padding: 120px 20px 40px 20px;
-    margin: 0 auto; /* Sentrerer automatisk */
+    margin: 0 auto;
     text-align: center;
-    /* Legg til 'fade-in' animasjonen du allerede har */
     animation: fadeIn 0.6s ease-in;
 }
     
@@ -372,7 +335,7 @@ main {
     margin-bottom: 40px;
 }
     
-    .contact-page form {
+.contact-page form {
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -387,11 +350,10 @@ main {
     font-weight: 500;
     letter-spacing: 0.5px;
     font-size: 1.1rem;
-    display: block; /* Sørger for at den tar opp egen linje */
-    margin-bottom: 5px; /* Litt pusterom */
+    display: block;
+    margin-bottom: 5px;
 }
     
-    /* Felles stiler for input-felter */
 .contact-page input,
 .contact-page select,
 .contact-page textarea {
@@ -402,7 +364,7 @@ main {
     font-size: 1rem;
     color: #fff;
     width: 100%;
-    box-sizing: border-box; /* Viktig for responsivitet */
+    box-sizing: border-box;
 }
     
 .contact-page select {
@@ -454,10 +416,10 @@ main {
     color: #00bfff;
 }
     
-    /* Responsiv fiks */
+/* Responsiv fiks for kontaktside */
 @media (max-width: 768px) {
     .contact-page {
-        padding-top: 110px; /* Juster for lavere navbar */
+        padding-top: 110px;
     }
     .contact-page form {
         padding: 30px 20px;
