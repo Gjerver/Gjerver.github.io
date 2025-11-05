@@ -151,6 +151,18 @@ main {
     .nav-links a {
         margin: 5px 0;
     }
+
+    /* --- NYE MOBIL-REGLER FOR HERO --- */
+    .hero-image {
+        /* Sentrerer innholdet (teksten) på mobil */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-text {
+        /* Sentrerer selve teksten */
+        text-align: center;
+    }
 }
 
 /* --- TEAM SECTION --- */
