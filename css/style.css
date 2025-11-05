@@ -92,17 +92,48 @@ main {
 
 .hero-image {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* ENDRET: Posisjonerer innholdet nede til høyre */
+    justify-content: flex-end;  /* Høyre */
+    align-items: flex-end;      /* Bunn */
     height: calc(100vh - 90px);
+    /* LAGT TIL: Padding for å gi luft fra kantene */
+    padding: 4vw;
+    box-sizing: border-box;
 }
 
-.hero-image img {
-    max-width: 90%;
-    max-height: 80vh;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+/* FJernet .hero-image img {...} regelen */
+
+/* LAGT TIL: Stiler for den nye teksten */
+.hero-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem); /* Responsiv størrelse */
+    font-weight: 600;
+    color: #E0E0E0; /* Lys grå (mye mer lesbar enn mørk) */
+    text-align: right;
+    max-width: 600px; /* Begrenser bredde for penere linjebryting */
+    line-height: 1.4;
+    /* Gir en "misty" look og hjelper med lesbarhet */
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); 
+    
+    /* Animasjon */
+    animation: mistyFadeIn 2.5s ease-out forwards;
+    opacity: 0; /* Starter usynlig */
 }
+
+/* LAGT TIL: Keyframes for "tåke"-animasjonen */
+@keyframes mistyFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(8px); /* Starter tåkete */
+        transform: translateX(30px); /* Starter litt til høyre */
+    }
+    to {
+        opacity: 1;
+        filter: blur(0); /* Fader til skarp */
+        transform: translateX(0); /* Lander på sin plass */
+    }
+}
+
 
 /* --- RESPONSIVITET --- */
 @media (max-width: 900px) {
