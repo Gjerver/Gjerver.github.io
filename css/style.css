@@ -244,23 +244,28 @@ main {
 
 /* --- TILLEGG FOR TEAM-SIDEN --- */
 
-/* Stil for e-postlenken */
+/* Stil for e-post-paragrafen */
 .team-member .team-email {
-    font-size: 0.95em;
-    margin: -5px 0 10px 0; /* Plasserer den tettere under navnet */
-    color: #ccc;
+    font-size: 0.9em; /* Litt mindre og nettere */
+    margin: -5px 0 10px 0;
+    color: #aaa; /* Dusere farge */
     font-weight: 500;
+    font-style: italic; /* Gjør den kursiv */
 }
 
+/* Stil for selve e-post-lenken */
 .team-member .team-email a {
-    color: #00bfff; /* Bruker en farge som matcher designet */
+    color: #ccc; /* Mer subtil lenkefarge som standard */
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease; /* Lagt til text-shadow */
 }
 
+/* Hover-effekt for e-post-lenken */
 .team-member .team-email a:hover {
-    color: #fff;
+    color: #00bfff; /* Blir knallblå */
     text-decoration: underline;
+    /* "Stilig" effekt: Legger til en lett "glow" */
+    text-shadow: 0 0 6px rgba(0, 191, 255, 0.6);
 }
 
 /* Container for sosiale medier-ikoner */
@@ -271,11 +276,11 @@ main {
 
 /* Selve LinkedIn-ikonet */
 .social-icon {
-    width: 32px; /* Liten, diskret størrelse */
-    height: 32px;
-    border-radius: 5px; /* Lett avrundede hjørner */
+    width: 24px;  /* ENDRET: fra 32px */
+    height: 24px; /* ENDRET: fra 32px */
+    border-radius: 4px; /* Litt mindre avrunding, passer størrelsen */
     transition: opacity 0.2s ease, transform 0.2s ease;
-    opacity: 0.75; /* Litt dempet som standard */
+    opacity: 0.75;
 }
 
 /* Hover-effekt på ikonet */
