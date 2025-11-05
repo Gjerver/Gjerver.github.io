@@ -2,8 +2,23 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #555555, #050505);
-    color: #fff;
+    
+    /* --- ENDRING START --- */
+    /* Bytter ut gradient med et bakgrunnsbilde */
+    /* Den gamle koden var: background: linear-gradient(135deg, #555555, #050505); */
+    
+    /* Antar at fjell.jpg ligger i 'images'-mappen, og css-filen i 'css'-mappen */
+    background-image: url('../images/fjell.jpg'); 
+    background-size: cover;           /* Dekker hele skjermflaten */
+    background-position: center;      /* Sentrerer bildet */
+    background-attachment: fixed;     /* Bildet står stille når man scroller */
+    background-repeat: no-repeat;   /* Forhindrer at bildet gjentas */
+    
+    /* Legger til en mørk bakgrunnsfarge som fallback hvis bildet ikke laster */
+    background-color: #050505; 
+    /* --- ENDRING SLUTT --- */
+    
+    color: #fff; /* Beholder hvit tekstfarge */
 }
 
 /* --- NAVBAR --- */
@@ -301,20 +316,20 @@ main {
     /* Legg til 'fade-in' animasjonen du allerede har */
     animation: fadeIn 0.6s ease-in;
 }
-   
+    
 .contact-page h1 {
     font-family: 'Comfortaa', sans-serif;
     font-size: 2.8rem;
     margin-bottom: 15px;
 }
-   
+    
 .contact-page .intro-text {
     font-size: 1.2rem;
     color: #ccc;
     margin-bottom: 40px;
 }
-   
-   .contact-page form {
+    
+    .contact-page form {
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -323,7 +338,7 @@ main {
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
-   
+    
 .contact-page label {
     text-align: left;
     font-weight: 500;
@@ -332,8 +347,8 @@ main {
     display: block; /* Sørger for at den tar opp egen linje */
     margin-bottom: 5px; /* Litt pusterom */
 }
-   
-   /* Felles stiler for input-felter */
+    
+    /* Felles stiler for input-felter */
 .contact-page input,
 .contact-page select,
 .contact-page textarea {
@@ -346,29 +361,29 @@ main {
     width: 100%;
     box-sizing: border-box; /* Viktig for responsivitet */
 }
-   
+    
 .contact-page select {
     color: #fff;
     background-color: rgba(255,255,255,0.15);
 }
-   
+    
 .contact-page option {
     color: #000;
     background: #fff;
 }
-   
+    
 .contact-page input:focus,
 .contact-page select:focus,
 .contact-page textarea:focus {
     outline: 2px solid #00bfff;
     background: rgba(255,255,255,0.25);
 }
-   
+    
 .contact-page textarea {
     height: 120px;
     resize: none;
 }
-   
+    
 .contact-page button {
     background: linear-gradient(135deg, #00bfff, #0099cc);
     border: none;
@@ -380,23 +395,23 @@ main {
     cursor: pointer;
     transition: 0.3s;
 }
-   
+    
 .contact-page button:hover {
     background: linear-gradient(135deg, #00a0d1, #00c3ff);
     transform: scale(1.03);
 }
-   
+    
 .contact-page .contact-info {
     margin-top: 40px;
     font-size: 1.1rem;
     color: #ccc;
 }
-   
+    
 .contact-page .contact-info strong {
     color: #00bfff;
 }
-   
-   /* Responsiv fiks */
+    
+    /* Responsiv fiks */
 @media (max-width: 768px) {
     .contact-page {
         padding-top: 110px; /* Juster for lavere navbar */
