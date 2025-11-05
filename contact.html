@@ -26,6 +26,12 @@
         h1 {
             font-family: 'Comfortaa', sans-serif;
             font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #ccc;
             margin-bottom: 40px;
         }
 
@@ -63,7 +69,7 @@
             background-color: rgba(255,255,255,0.15);
         }
         option {
-            color: #000; /* synlig tekst i dropdown */
+            color: #000;
             background: #fff;
         }
 
@@ -110,6 +116,22 @@
             height: auto;
         }
 
+        /* Fiks linkfarger i navbar */
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-right a:hover {
+            color: #00bfff;
+        }
+
+        .nav-right a.active {
+            color: #00bfff;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             main {
                 margin-top: 110px;
@@ -140,7 +162,9 @@
 
     <main>
         <h1>Kontakt oss</h1>
-        <form action="mailto:Vetle@eldion.no,Christoffer@eldion.no,Joar@eldion.no" method="post" enctype="text/plain">
+        <p class="intro-text">Vi vil gjerne høre fra deg – enten du har spørsmål, forslag eller ønsker samarbeid.</p>
+
+        <form action="mailto:Vetle@eldion.no" method="post" enctype="text/plain">
             <div>
                 <label for="topic">Hva gjelder det?</label>
                 <select id="topic" name="topic" required>
@@ -157,6 +181,11 @@
             <div>
                 <label for="name">Hvem er du?</label>
                 <input type="text" id="name" name="name" placeholder="Navn eller firmanavn" required>
+            </div>
+
+            <div>
+                <label for="email">E-post</label>
+                <input type="email" id="email" name="email" placeholder="Din e-postadresse" required>
             </div>
 
             <div>
