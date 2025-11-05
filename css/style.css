@@ -276,8 +276,8 @@ main {
 
 /* Selve LinkedIn-ikonet */
 .social-icon {
-    width: 24px;  /* ENDRET: fra 32px */
-    height: 24px; /* ENDRET: fra 32px */
+    width: 12px;  /* ENDRET: fra 32px */
+    height: 12px; /* ENDRET: fra 32px */
     border-radius: 4px; /* Litt mindre avrunding, passer størrelsen */
     transition: opacity 0.2s ease, transform 0.2s ease;
     opacity: 0.75;
