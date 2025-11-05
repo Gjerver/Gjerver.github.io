@@ -3,70 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt oss | eldION</title>
+    <title>Kontakt oss - eldION</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Enkel fade-animasjon mellom sider */
+        body {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 120px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            text-align: left;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+        }
+
+        input, select, textarea {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            color: #fff;
+            width: 100%;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #f8b400;
+            background: rgba(255,255,255,0.25);
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, #f8b400, #ff6600);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #ff8800, #ffaa00);
+            transform: scale(1.03);
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin-top: 100px;
+                padding: 0 10px;
+            }
+            form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
-<body class="fade-in">
-    <header class="navbar">
-        <div class="logo-section">
-            <a href="index.html" class="home-link">
-                <img src="images/logo2.png" alt="eldION logo" class="logo">
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo-link">
+                <img src="images/logo2.png" alt="eldION logo" class="nav-logo">
+                <span class="nav-title">eldION</span>
             </a>
-            <div class="logo-text">
-                <h1>eldION</h1>
-                <p class="subtitle">Fra ild til ladning</p>
-            </div>
         </div>
-        <nav class="nav-links">
+        <div class="nav-right">
             <a href="about.html">Om oss</a>
             <a href="goal.html">Vårt mål</a>
             <a href="team.html">Teamet</a>
             <a href="news.html">Nyheter</a>
-            <a href="contact.html" class="active">Kontakt oss</a>
-        </nav>
-    </header>
+            <a href="kontakt.html" class="active">Kontakt oss</a>
+        </div>
+    </div>
 
-    <main class="contact-section">
-        <h2>Kontakt oss</h2>
-        <p class="contact-intro">
-            Vi ønsker å høre fra deg! Fyll ut skjemaet under, så tar vi kontakt så snart som mulig.
-        </p>
+    <main>
+        <h1>Kontakt oss</h1>
+        <form action="mailto:Vetle@eldion.no,Christoffer@eldion.no,Joar@eldion.no" method="post" enctype="text/plain">
+            <div>
+                <label for="topic">Hva gjelder det?</label>
+                <select id="topic" name="topic" required>
+                    <option value="">Velg kategori</option>
+                    <option value="investering">Investering</option>
+                    <option value="samarbeid">Samarbeid</option>
+                    <option value="pilotprosjekt">Pilotprosjekt</option>
+                    <option value="kundeforespørsel">Kundeforespørsel</option>
+                    <option value="teknisk">Teknisk henvendelse</option>
+                    <option value="annet">Annet</option>
+                </select>
+            </div>
 
-        <form class="contact-form" action="https://formsubmit.co/Vetle@eldion.no" method="POST">
-            <!-- Ekstra skjulte felt for videresending -->
-            <input type="hidden" name="_cc" value="Christoffer@eldion.no,Joar@eldion.no">
-            <input type="hidden" name="_subject" value="Ny henvendelse fra eldION.no">
-            <input type="hidden" name="_captcha" value="false">
+            <div>
+                <label for="name">Hvem er du?</label>
+                <input type="text" id="name" name="name" placeholder="Navn eller firmanavn" required>
+            </div>
 
-            <label for="topic">Hva gjelder henvendelsen?</label>
-            <select id="topic" name="topic" required>
-                <option value="">Velg kategori...</option>
-                <option value="investering">Investering</option>
-                <option value="samarbeid">Samarbeid</option>
-                <option value="pilotprosjekt">Pilotprosjekt / testing</option>
-                <option value="kundeforespørsel">Kundeforespørsel</option>
-                <option value="teknisk">Teknisk spørsmål</option>
-                <option value="annet">Annet</option>
-            </select>
+            <div>
+                <label for="message">Melding</label>
+                <textarea id="message" name="message" placeholder="Skriv meldingen din her..." required></textarea>
+            </div>
 
-            <label for="name">Hvem er du?</label>
-            <input type="text" id="name" name="name" placeholder="Navn eller organisasjon" required>
-
-            <label for="email">E-postadresse</label>
-            <input type="email" id="email" name="email" placeholder="Din e-post" required>
-
-            <label for="message">Melding</label>
-            <textarea id="message" name="message" rows="5" placeholder="Skriv meldingen din her..." required></textarea>
-
-            <button type="submit">Send melding</button>
+            <button type="submit">Send</button>
         </form>
 
-        <div class="contact-extra">
-            <p>Du kan også nå oss direkte:</p>
-            <p><strong>Telefon:</strong> +47 400 00 000</p>
-            <p><strong>E-post:</strong> <a href="mailto:Vetle@eldion.no">Vetle@eldion.no</a></p>
+        <div class="contact-info">
+            <p>Du kan også nå oss på telefon: <strong>+47 999 99 999</strong></p>
         </div>
     </main>
+
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>
