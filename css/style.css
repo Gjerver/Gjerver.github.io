@@ -4,31 +4,73 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #555555, #050505);
     color: #fff;
-    text-align: center;
-    height: 100vh;
-    overflow: hidden;
 }
 
-h1 {
-    font-family: 'Comfortaa', sans-serif;
-}
-
-.header-wrapper {
+/* --- NAVBAR --- */
+.navbar {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    height: 100vh; /* sentrer alt vertikalt på siden */
+    background: rgba(10, 10, 10, 0.9);
+    padding: 10px 40px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
 
-.header {
+.logo-section {
     display: flex;
-    flex-direction: row;
-    align-items: center;  /* vertikal justering av logo + h1 */
-    gap: 15px;            /* luft mellom logo og tekst */
+    align-items: center;
+    gap: 10px;
 }
 
 .logo {
-    width: 50px;  /* juster størrelse */
+    width: 50px;
     height: auto;
+}
+
+.logo-text h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.6em;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.9em;
+    color: #ccc;
+    margin: 0;
+}
+
+/* --- NAV LINKS --- */
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+}
+
+/* --- HERO IMAGE --- */
+main {
+    padding-top: 80px; /* plass til navbar */
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+}
+
+.hero-image img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
