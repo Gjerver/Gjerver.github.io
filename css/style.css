@@ -149,17 +149,17 @@ main {
         text-align: center;
     }
 
-    /* LØSNINGEN ER HER:
-       Når nav-baren stabler seg (blir "column"), er den høyere.
-       Vi må øke padding-top på alle innholdssider 
-       for å dytte innholdet lenger ned, kun på mobil.
+    /* LØSNINGEN FJERNET HERFRA:
+       Vi fjerner regelen herfra, fordi den blir 
+       overkjørt av regler lenger nede i filen.
     */
+    /*
     .page-content,
     .team-section,
     .contact-page {
-        /* Øker fra 120px til 170px (juster ved behov) */
         padding-top: 170px; 
     }
+    */
 }
 
 /* --- TEAM SECTION --- */
@@ -443,5 +443,19 @@ main {
     }
     .contact-page form {
         padding: 30px 20px;
+    }
+}
+
+/* --- LØSNINGEN LAGT TIL HER --- */
+/* VI LEGGER MOBIL-FIKSEN HELT TIL SLUTT:
+  Ved å legge denne regelen på slutten av filen, 
+  sørger vi for at den "vinner" over desktop-stilene 
+  (som padding-top: 120px) på små skjermer.
+*/
+@media (max-width: 900px) {
+    .page-content,
+    .team-section,
+    .contact-page {
+        padding-top: 170px; /* Mer plass til høy navbar */
     }
 }
