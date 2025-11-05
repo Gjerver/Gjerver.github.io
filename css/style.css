@@ -106,3 +106,66 @@ main {
         margin: 5px 0;
     }
 }
+
+/* --- TEAM SECTION --- */
+.team-section {
+    padding-top: 120px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.team-section h2 {
+    font-family: 'Comfortaa', sans-serif;
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 0 5%;
+}
+
+.team-member {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+
+.team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    margin: 10px 0 5px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.team-member p {
+    font-size: 0.95em;
+    color: #ccc;
+}
+
+/* --- PAGE FADE-IN ANIMATION --- */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
