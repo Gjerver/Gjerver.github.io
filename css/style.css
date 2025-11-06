@@ -471,4 +471,14 @@ main {
     .contact-page {
         padding-top: 170px; /* Mer plass til høy navbar */
     }
+
+    /*
+     * NY REGEL FOR Å FIKSE "HAKK" PÅ MOBIL:
+     * Vi endrer 'fixed' til 'scroll' på enheter under 900px.
+     * Dette hindrer at bakgrunnen må regnes ut på nytt
+     * når URL-feltet skjules/vises.
+    */
+    body {
+        background-attachment: scroll;
+    }
 }
