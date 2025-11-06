@@ -33,7 +33,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(10, 10, 10, 0.85);
+    background: rgba(10, 10, 10, 0.45);
     padding: 10px clamp(10px, 4vw, 60px); /* dynamisk padding */
     
     -webkit-backdrop-filter: blur(10px);
