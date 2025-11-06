@@ -1,6 +1,8 @@
 /* NY REGEL: Myk scrolling for hele siden */
 html {
     scroll-behavior: smooth;
+    /* NYTT: Sørger for at html-elementet kan fylle hele høyden */
+    height: 100%;
 }
 
 body {
@@ -20,6 +22,14 @@ body {
     background-color: #050505; 
     
     color: #fff; /* Hvit tekstfarge */
+
+    /* -- NYE REGLER FOR STICKY FOOTER -- */
+    /* Gjør body om til en flex-container */
+    display: flex;
+    /* Stabler innholdet (main, footer) vertikalt */
+    flex-direction: column;
+    /* Sørger for at body er MINST like høy som nettleservinduet */
+    min-height: 100vh;
 }
 
 /* --- NAVBAR --- */
@@ -125,6 +135,10 @@ body {
 /* --- HERO-SEKSJON (FORSIDE) --- */
 main {
     padding-top: 90px; /* plass til navbar */
+
+    /* NY REGEL: Tvinger <main> til å vokse og fylle all ledig plass */
+    /* Dette dytter footeren til bunnen. */
+    flex-grow: 1;
 }
 
 .hero-image {
