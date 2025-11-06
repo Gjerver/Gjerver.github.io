@@ -163,7 +163,8 @@ main {
 .team-section {
     padding-top: 120px;
     text-align: center;
-    animation: fadeIn 0.6s ease-in-out;
+    /* FJERN ANIMASJONEN HERFRA */
+    /* animation: fadeIn 0.6s ease-in-out; */
 }
 
 .team-section h2 {
@@ -355,7 +356,8 @@ main {
     padding: 120px 20px 40px 20px;
     margin: 0 auto;
     text-align: center;
-    animation: fadeIn 0.6s ease-in;
+    /* FJERN ANIMASJONEN HERFRA */
+    /* animation: fadeIn 0.6s ease-in; */
 }
     
 .contact-page h1 {
