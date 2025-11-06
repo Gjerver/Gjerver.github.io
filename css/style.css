@@ -4,8 +4,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
     /* Bakgrunnsbilde-innstillinger */
+    /* Antar at 'images' er i en mappe på samme nivå som 'css'-mappen */
     background-image: url('../images/fjell.jpg'); 
-    background-size: cover;         /* Dekker hele skjermflaten */
+    background-size: cover;       /* Dekker hele skjermflaten */
     background-position: center;    /* Sentrerer bildet */
     background-attachment: fixed;   /* Bildet står stille når man scroller */
     background-repeat: no-repeat; /* Forhindrer at bildet gjentas */
@@ -21,11 +22,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* ENDRING: Justert fra 0.95 til 0.85 for mer gjennomsiktighet */
     background: rgba(10, 10, 10, 0.85);
     padding: 10px clamp(10px, 4vw, 60px); /* dynamisk padding */
     
-    /* FORSLAG 1: Legg til "frostet glass"-effekt */
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     
@@ -86,10 +85,9 @@ body {
     color: #00bfff;
 }
 
-/* FORSLAG 2: Stil for aktiv navigasjonslenke */
 .nav-links a.active {
-    color: #00bfff; /* Samme som hover-fargen */
-    font-weight: 700; /* Gjør den litt dristigere */
+    color: #00bfff; 
+    font-weight: 700; 
 }
 
 /* --- HERO-SEKSJON (FORSIDE) --- */
@@ -151,7 +149,6 @@ main {
         margin: 5px 0;
     }
 
-    /* Mobil-fiks for hero-tekst */
     .hero-image {
         justify-content: center;
         align-items: center;
@@ -160,18 +157,6 @@ main {
     .hero-text {
         text-align: center;
     }
-
-    /* LØSNINGEN FJERNET HERFRA:
-       Vi fjerner regelen herfra, fordi den blir 
-       overkjørt av regler lenger nede i filen.
-    */
-    /*
-    .page-content,
-    .team-section,
-    .contact-page {
-        padding-top: 170px; 
-    }
-    */
 }
 
 /* --- TEAM SECTION --- */
@@ -190,7 +175,7 @@ main {
 .team-container {
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    align-items: stretch; /* ENDRET: Denne sørger for at alle kortene blir like høye */
     gap: 40px;
     flex-wrap: wrap;
     padding: 0 5%;
@@ -203,11 +188,13 @@ main {
     width: 280px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    /* FORSLAG 1: "Frostet glass"-effekt for team-kort */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+    
+    /* ENDRET: Slått sammen regler. Gjør kortet til en flex-container */
+    display: flex;
+    flex-direction: column; /* Stabler innholdet vertikalt */
 }
 
 .team-member:hover {
@@ -215,25 +202,7 @@ main {
     box-shadow: 0 6px 16px rgba(0,0,0,0.5);
 }
 
-/* Legg til dette i style.css */
-
-.team-member {
-    /* ... dine eksisterende stiler ... */
-    display: flex;           /* Gjør kortet til en flex-container */
-    flex-direction: column;  /* Sørg for at innholdet stables vertikalt */
-}
-
-.social-links {
-    /* ... dine eksisterende stiler ... */
-    margin-top: auto;        /* MAGI: Dytter denne div-en til bunnen */
-}
-
-
-/* ENDRINGEN ER HER:
-   Vi har endret fra ".team-member img" til ".team-member > img".
-   Dette gjør at "width: 100%" KUN gjelder profilbildet, 
-   og ikke .social-icon som ligger dypere.
-*/
+/* Denne regelen gjelder kun profilbildet */
 .team-member > img {
     width: 100%;
     height: auto;
@@ -249,6 +218,14 @@ main {
 .team-member p {
     font-size: 0.95em;
     color: #ccc;
+}
+
+/* NY REGEL: Denne wrapperen tar opp ledig plass */
+.team-info-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Dytter innholdet (Elsker/Hater) til bunnen */
+    flex-grow: 1; /* Lar denne boksen vokse og fylle tomrommet */
 }
 
 /* Stil for e-post-paragrafen */
@@ -275,7 +252,7 @@ main {
 
 /* Container for sosiale medier-ikoner */
 .social-links {
-    margin-top: 20px;
+    margin-top: 20px; /* ENDRET: Fjernet 'auto', tilbake til fast margin */
     text-align: center;
 }
 
@@ -324,16 +301,12 @@ main {
     line-height: 1.7;
     font-size: 1.05em;
 
-    /* FORSLAG 1: "Frostet glass"-effekt for innholdskort */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
-
-    /* FORSLAG 3: Gjør kortet klart for hover-animasjon */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* FORSLAG 3: Legg til hover-effekt på innholdskort */
 .content-card:hover {
     transform: translateY(-3px); /* Løfter seg litt */
     box-shadow: 0 6px 16px rgba(0,0,0,0.5);
@@ -406,7 +379,6 @@ main {
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
 
-    /* FORSLAG 1: "Frostet glass"-effekt for kontaktskjema */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
@@ -485,23 +457,12 @@ main {
     
 /* Responsiv fiks for kontaktside */
 @media (max-width: 768px) {
-    .contact-page {
-        /* Denne regelen er nå håndtert av 900px-regelen over,
-           så vi kan fjerne den for å unngå konflikter.
-        */
-        /* padding-top: 110px; */ 
-    }
     .contact-page form {
         padding: 30px 20px;
     }
 }
 
-/* --- LØSNINGEN LAGT TIL HER --- */
-/* VI LEGGER MOBIL-FIKSEN HELT TIL SLUTT:
-  Ved å legge denne regelen på slutten av filen, 
-  sørger vi for at den "vinner" over desktop-stilene 
-  (som padding-top: 120px) på små skjermer.
-*/
+/* MOBIL-FIKS HELT TIL SLUTT */
 @media (max-width: 900px) {
     .page-content,
     .team-section,
