@@ -236,6 +236,8 @@ main {
     /* NYE REGLER FOR Å STYRE INNHOLD INTERNT */
     display: flex;
     flex-direction: column;
+    /* VIKTIG: Gi space-between slik at info-content dytter sosiale lenker ned */
+    justify-content: space-between; 
 }
 
 .team-member:hover {
@@ -265,7 +267,8 @@ main {
     flex-grow: 1; /* Tvinger denne div-en til å fylle tomrommet */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Justerer innholdet (beskrivelsen) til toppen */
+    /* NY: Justerer innholdet (beskrivelsen, elsker, hater) til bunnen av denne wrapperen */
+    justify-content: flex-end; 
 }
 
 /* Stil for e-post-paragrafen */
@@ -499,7 +502,7 @@ main {
 /* --- FOOTER --- */
 .site-footer {
     text-align: center;
-    padding: 15px 20px;
+    padding: 25px 20px; /* Redusert padding her */
     margin-top: 50px; /* Gir litt pusterom fra innholdet over */
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(5px);
