@@ -1,8 +1,7 @@
 /* NY REGEL: Myk scrolling for hele siden */
 html {
     scroll-behavior: smooth;
-    /* NYTT: Sørger for at html-elementet kan fylle hele høyden */
-    height: 100%;
+    height: 100%; /* Nødvendig for sticky footer */
 }
 
 body {
@@ -10,52 +9,24 @@ body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    /* Bakgrunnsbilde-innstillinger - DISSE FLYTTES */
-    /* background-image: url('../images/fjell.jpg'); */
-    /* background-size: cover; */
-    /* background-position: center; */
-    /* background-attachment: fixed; */ /* Denne forårsaker "hakk" på mobil */
-    /* background-repeat: no-repeat; */
+    /* Bakgrunnsbilde-innstillinger */
+    background-image: url('../images/fjell.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Standard er 'fixed' for desktop */
+    background-repeat: no-repeat;
     
-    /* Fallback-farge blir værende */
+    /* Fallback-farge hvis bildet ikke laster */
     background-color: #050505; 
     
     color: #fff; /* Hvit tekstfarge */
 
-    /* NYE REGLER for å etablere stable-kontekst */
-    position: relative;
-    z-index: 0;
-
-    /* -- NYE REGLER FOR STICKY FOOTER -- */
-    /* Gjør body om til en flex-container */
+    /* -- REGLER FOR STICKY FOOTER -- */
     display: flex;
-    /* Stabler innholdet (main, footer) vertikalt */
     flex-direction: column;
     /* Sørger for at body er MINST like høy som nettleservinduet */
     min-height: 100vh;
 }
-
-/* * NY REGEL: Robust bakgrunns-fiks
- * Denne metoden flytter bakgrunnen til et eget "lag" (et pseudo-element)
- * som er 'position: fixed'. Dette løser "hakk"-problemet på mobil,
- * samtidig som det beholder den faste bakgrunnen på alle enheter.
-*/
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; /* Plasserer den bak alt innholdet */
-
-    /* Alle bakgrunnsreglene flyttes hit */
-    background-image: url('../images/fjell.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 
 /* --- NAVBAR --- */
 .navbar {
@@ -113,31 +84,23 @@ body::before {
     text-align: right;
 }
 
-/* * KORREKSJON: Denne blokken manglet '.nav-links a {' før seg. 
- * Nå er den fikset.
-*/
 .nav-links a {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s ease, transform 0.2s ease;
-    white-space: nowrap; /* holder hvert ord sammen */
-    /* NYTT: Nødvendig for at transform skal fungere */
-    display: inline-block; 
+    /* ENDRING: Legg til 'transform' i overgangen */
+    transition: color 0.2s ease, transform 0.2s ease; 
+    white-space: nowrap;
+    display: inline-block; /* Nødvendig for at transform skal funke */
 }
 
 .nav-links a:hover {
     color: #00bfff;
-    /* NYTT: Lagt til "løft" */
+    /* NY: Legg til et lite løft */
     transform: translateY(-2px);
 }
 
-.nav-links a.active {
-    color: #00bfff; 
-    font-weight: 700; 
-}
-
-/* NY REGEL: Stil for lenker som ikke er klare enda */
+/* Stil for lenker som ikke er klare enda */
 .nav-links a[href="#"] {
     color: #888; /* Gråer den ut */
     opacity: 0.6;
@@ -146,10 +109,16 @@ body::before {
 
 .nav-links a[href="#"]:hover {
     color: #888; /* Hindrer at den får hover-fargen */
-    transform: none; /* Fjerner "løft"-effekten */
+    transform: none; /* Fjerner løft-effekten */
 }
 
-/* NY REGEL: Tydelig markering for tastatur-brukere */
+/* FORSLAG 2: Stil for aktiv navigasjonslenke */
+.nav-links a.active {
+    color: #00bfff; /* Samme som hover-fargen */
+    font-weight: 700; /* Gjør den litt dristigere */
+}
+
+/* Tydelig markering for tastatur-brukere */
 .nav-links a:focus-visible {
     outline: 2px solid #00bfff; /* Samme farge som hover */
     outline-offset: 3px;
@@ -157,12 +126,12 @@ body::before {
     color: #00bfff;
 }
 
+
 /* --- HERO-SEKSJON (FORSIDE) --- */
 main {
     padding-top: 90px; /* plass til navbar */
-
-    /* NY REGEL: Tvinger <main> til å vokse og fylle all ledig plass */
-    /* Dette dytter footeren til bunnen. */
+    /* -- REGEL FOR STICKY FOOTER -- */
+    /* Gjør at main-innholdet strekker seg og dytter footeren ned */
     flex-grow: 1;
 }
 
@@ -203,7 +172,7 @@ main {
     }
 }
 
-/* --- RESPONSIVITET --- */
+/* --- RESPONSIVITET (FØRSTE BLOKK) --- */
 @media (max-width: 900px) {
     .navbar {
         flex-direction: column;
@@ -220,6 +189,7 @@ main {
         margin: 5px 0;
     }
 
+    /* Mobil-fiks for hero-tekst */
     .hero-image {
         justify-content: center;
         align-items: center;
@@ -234,8 +204,7 @@ main {
 .team-section {
     padding-top: 120px;
     text-align: center;
-    /* FJERN ANIMASJONEN HERFRA */
-    /* animation: fadeIn 0.6s ease-in-out; */
+    /* 'animation' er fjernet herfra og flyttet til .team-member */
 }
 
 .team-section h2 {
@@ -247,7 +216,7 @@ main {
 .team-container {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* ENDRET: Denne sørger for at alle kortene blir like høye */
+    align-items: stretch; /* Sørger for at kortene blir like høye */
     gap: 40px;
     flex-wrap: wrap;
     padding: 0 5%;
@@ -264,9 +233,9 @@ main {
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
     
-    /* ENDRET: Slått sammen regler. Gjør kortet til en flex-container */
+    /* NYE REGLER FOR Å STYRE INNHOLD INTERNT */
     display: flex;
-    flex-direction: column; /* Stabler innholdet vertikalt */
+    flex-direction: column;
 }
 
 .team-member:hover {
@@ -274,7 +243,6 @@ main {
     box-shadow: 0 6px 16px rgba(0,0,0,0.5);
 }
 
-/* Denne regelen gjelder kun profilbildet */
 .team-member > img {
     width: 100%;
     height: auto;
@@ -292,12 +260,12 @@ main {
     color: #ccc;
 }
 
-/* NY REGEL: Denne wrapperen tar opp ledig plass */
+/* NY REGEL: Wrapper for "Elsker/Hater" */
 .team-info-content {
+    flex-grow: 1; /* Tvinger denne div-en til å fylle tomrommet */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Dytter innholdet (Elsker/Hater) til bunnen */
-    flex-grow: 1; /* Lar denne boksen vokse og fylle tomrommet */
+    justify-content: flex-start; /* Justerer innholdet (beskrivelsen) til toppen */
 }
 
 /* Stil for e-post-paragrafen */
@@ -324,7 +292,7 @@ main {
 
 /* Container for sosiale medier-ikoner */
 .social-links {
-    margin-top: 20px; /* ENDRET: Fjernet 'auto', tilbake til fast margin */
+    margin-top: 20px; /* Tilbake til fast margin */
     text-align: center;
 }
 
@@ -376,6 +344,7 @@ main {
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -427,8 +396,7 @@ main {
     padding: 120px 20px 40px 20px;
     margin: 0 auto;
     text-align: center;
-    /* FJERN ANIMASJONEN HERFRA */
-    /* animation: fadeIn 0.6s ease-in; */
+    /* 'animation' er fjernet herfra og flyttet til <form> */
 }
     
 .contact-page h1 {
@@ -528,14 +496,13 @@ main {
     color: #00bfff;
 }
     
-/* --- FOOTER (NY SEKSJON) --- */
+/* --- FOOTER --- */
 .site-footer {
     text-align: center;
     padding: 40px 20px;
     margin-top: 50px; /* Gir litt pusterom fra innholdet over */
-    background: rgba(10, 10, 10, 0.7); /* Litt mørkere enn navbaren */
+    background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     font-size: 0.9em;
     color: #aaa;
     width: 100%;
@@ -547,14 +514,7 @@ main {
     margin: 0;
 }
 
-/* Responsiv fiks for kontaktside */
-@media (max-width: 768px) {
-    .contact-page form {
-        padding: 30px 20px;
-    }
-}
-
-/* MOBIL-FIKS HELT TIL SLUTT */
+/* --- RESPONSIV FIKS (SISTE BLOKK) --- */
 @media (max-width: 900px) {
     .page-content,
     .team-section,
@@ -563,15 +523,17 @@ main {
     }
 
     /*
-     * NY REGEL FOR Å FIKSE "HAKK" PÅ MOBIL:
-     * Vi endrer 'fixed' til 'scroll' på enheter under 900px.
-     * Dette hindrer at bakgrunnen må regnes ut på nytt
-     * når URL-feltet skjules/vises.
+     * FIKS FOR "HAKK" OG "SVART BAKGRUNN" PÅ MOBIL:
+     * 1. Vi lar bakgrunnen scrolle med siden for å unngå "hakk".
+     * 2. Vi skrur av 'min-height: 100vh' for å unngå "svart bakgrunn".
     */
-    /* DENNE FJERNES, da den nye metoden løser dette globalt */
-    /*
     body {
         background-attachment: scroll;
+        min-height: 0; /* Deaktiverer sticky footer på mobil */
     }
-    */
+
+    /* Vi fjerner også 'min-height: 100vh' fra html-taggen på mobil */
+    html {
+        height: auto;
+    }
 }
