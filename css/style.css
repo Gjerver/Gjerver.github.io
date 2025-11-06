@@ -10,18 +10,21 @@ body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    /* Bakgrunnsbilde-innstillinger */
-    /* Antar at 'images' er i en mappe på samme nivå som 'css'-mappen */
-    background-image: url('../images/fjell.jpg'); 
-    background-size: cover;       /* Dekker hele skjermflaten */
-    background-position: center;    /* Sentrerer bildet */
-    background-attachment: fixed;   /* Bildet står stille når man scroller */
-    background-repeat: no-repeat; /* Forhindrer at bildet gjentas */
+    /* Bakgrunnsbilde-innstillinger - DISSE FLYTTES */
+    /* background-image: url('../images/fjell.jpg'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* background-attachment: fixed; */ /* Denne forårsaker "hakk" på mobil */
+    /* background-repeat: no-repeat; */
     
-    /* Fallback-farge hvis bildet ikke laster */
+    /* Fallback-farge blir værende */
     background-color: #050505; 
     
     color: #fff; /* Hvit tekstfarge */
+
+    /* NYE REGLER for å etablere stable-kontekst */
+    position: relative;
+    z-index: 0;
 
     /* -- NYE REGLER FOR STICKY FOOTER -- */
     /* Gjør body om til en flex-container */
@@ -31,6 +34,28 @@ body {
     /* Sørger for at body er MINST like høy som nettleservinduet */
     min-height: 100vh;
 }
+
+/* * NY REGEL: Robust bakgrunns-fiks
+ * Denne metoden flytter bakgrunnen til et eget "lag" (et pseudo-element)
+ * som er 'position: fixed'. Dette løser "hakk"-problemet på mobil,
+ * samtidig som det beholder den faste bakgrunnen på alle enheter.
+*/
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Plasserer den bak alt innholdet */
+
+    /* Alle bakgrunnsreglene flyttes hit */
+    background-image: url('../images/fjell.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 /* --- NAVBAR --- */
 .navbar {
@@ -543,7 +568,10 @@ main {
      * Dette hindrer at bakgrunnen må regnes ut på nytt
      * når URL-feltet skjules/vises.
     */
+    /* DENNE FJERNES, da den nye metoden løser dette globalt */
+    /*
     body {
         background-attachment: scroll;
     }
+    */
 }
