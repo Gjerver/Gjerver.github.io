@@ -190,7 +190,7 @@ main {
 .team-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 40px;
     flex-wrap: wrap;
     padding: 0 5%;
@@ -214,6 +214,20 @@ main {
     transform: translateY(-5px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.5);
 }
+
+/* Legg til dette i style.css */
+
+.team-member {
+    /* ... dine eksisterende stiler ... */
+    display: flex;           /* Gjør kortet til en flex-container */
+    flex-direction: column;  /* Sørg for at innholdet stables vertikalt */
+}
+
+.social-links {
+    /* ... dine eksisterende stiler ... */
+    margin-top: auto;        /* MAGI: Dytter denne div-en til bunnen */
+}
+
 
 /* ENDRINGEN ER HER:
    Vi har endret fra ".team-member img" til ".team-member > img".
