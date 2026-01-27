@@ -15,64 +15,34 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Spesifikke farger fra LaTeX-designet */
+        /* Spesifikke farger fra LaTeX-designet (Tilpasset Dark Mode) */
         :root {
-            --latex-navy: #002040;
             --latex-cyan: #00AEEF;
-            --latex-grey: #F4F6F8;
             --latex-orange: #E94E1B;
-            --latex-tech-blue: #005090;
+            /* Endret fra mørkeblå til en lysere blå for lesbarhet på mørk bakgrunn */
+            --latex-tech-blue-light: #66b3ff; 
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
         }
 
-        /* Vi overstyrer main-padding for å få plass til hero-banneret rett under navbaren */
-        main.page-content {
-            padding-top: 80px; /* Justert for din fixed navbar */
-            display: block; /* Overstyrer flex-center fra style.css for dette spesifikke designet */
-        }
-
-        /* Hero Banner (erstatning for LaTeX Header) */
-        .latex-hero {
-            background-color: var(--latex-navy);
-            color: white;
-            padding: 40px 5%;
-            border-bottom: 5px solid var(--latex-cyan);
-            margin-bottom: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-inner {
-            max-width: 1100px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .hero-inner h2 {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin: 0;
-            color: white; /* Beholder hvit her for kontrast mot navy */
-        }
-
-        .hero-inner p {
-            font-style: italic;
-            opacity: 0.9;
-            margin-top: 10px;
-            color: #ccc;
-        }
-
-        /* Hovedbeholder for innholdet (to-kolonne som i LaTeX) */
+        /* Hovedbeholder for innholdet (to-kolonne) - Nå med Glassmorphism */
         .latex-container {
             max-width: 1100px;
             margin: 0 auto;
-            background: white; /* Hvit bakgrunn som et ark/dokument */
-            color: #333; /* Mørk tekst på hvitt ark */
+            
+            /* Glassmorphism settings som matcher style.css */
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            
+            color: #eee; /* Lys tekst */
             display: grid;
             grid-template-columns: 1.8fr 1fr;
             min-height: 800px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden; /* For at border-radius skal funke på sidebar */
         }
 
         /* Venstre kolonne */
@@ -83,30 +53,32 @@
         .latex-main h3 {
             color: var(--latex-cyan);
             font-size: 1.8rem;
-            border-bottom: 2px solid var(--latex-grey);
+            border-bottom: 2px solid var(--glass-border);
             margin: 30px 0 15px;
             padding-bottom: 5px;
+            font-family: 'Comfortaa', cursive;
         }
 
         .latex-main p {
-            color: #444;
+            color: #ccc;
             margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         /* Høyre kolonne (Sidebar) */
         .latex-sidebar {
-            background-color: var(--latex-grey);
+            background-color: rgba(0, 0, 0, 0.2); /* Litt mørkere for kontrast */
             padding: 40px 30px;
-            border-left: 1px solid #ddd;
+            border-left: 1px solid var(--glass-border);
         }
 
-        /* Oransje boks fra LaTeX */
+        /* Oransje boks */
         .latex-cta {
-            background: white;
-            border: 3px solid var(--latex-orange);
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid var(--latex-orange);
             padding: 20px;
-            border-radius: 4px;
-            box-shadow: 5px 5px 0px rgba(233, 78, 27, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(233, 78, 27, 0.1);
             margin-bottom: 30px;
         }
 
@@ -125,7 +97,7 @@
         .value-item {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .icon-circle {
@@ -133,22 +105,35 @@
             height: 45px;
             border-radius: 50%;
             border: 1px solid var(--latex-cyan);
-            background: rgba(0, 174, 239, 0.05);
+            background: rgba(0, 174, 239, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--latex-tech-blue);
+            color: var(--latex-cyan);
+        }
+        
+        .value-item strong {
+            color: white;
+            font-size: 1.05rem;
         }
 
         /* Tekniske data tabell-stil */
         .tech-data {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            color: #ccc;
         }
 
         .tech-data strong {
             display: block;
             margin-top: 15px;
-            color: var(--latex-tech-blue);
+            color: var(--latex-tech-blue-light);
+        }
+        
+        .image-caption {
+            font-size: 0.8rem; 
+            color: #aaa; 
+            margin-top: 10px; 
+            font-style: italic;
         }
 
         /* Responsivitet */
@@ -158,11 +143,7 @@
             }
             .latex-sidebar {
                 border-left: none;
-                border-top: 1px solid #ddd;
-            }
-            .hero-inner {
-                flex-direction: column;
-                text-align: center;
+                border-top: 1px solid var(--glass-border);
             }
         }
     </style>
@@ -191,22 +172,14 @@
 
     <main class="page-content fade-in">
         
-        <!-- Blått banner som i LaTeX-toppen -->
-        <section class="latex-hero">
-            <div class="hero-inner">
-                <div>
-                    <h2>Trådløs overvåking – uten batterier.</h2>
-                    <p>Vedlikeholdsfri IoT for industrien, drevet av spillvarme</p>
-                </div>
-                <img src="images/logo2.png" alt="eldION" style="height: 80px; filter: brightness(0) invert(1);">
-            </div>
-        </section>
-
-        <!-- Selve "One-pager" dokumentet -->
+        <!-- Selve "One-pager" dokumentet (Nå i Glass-design) -->
         <div class="latex-container">
             
             <!-- Venstre kolonne -->
             <article class="latex-main">
+                <h2 style="font-family: 'Comfortaa'; color: white; margin-bottom: 10px; margin-top:0;">Fremtidens Målinger</h2>
+                <p style="font-size: 1.1rem; color: #aaa; margin-bottom: 30px;"><i>Trådløs overvåking uten batterier – drevet av spillvarme.</i></p>
+
                 <h3>Utfordringen</h3>
                 <p><strong>En sentral målsetning for Industri 4.0</strong> er heldekkende trådløs overvåking, men infrastrukturen henger etter. Kabling er kostbart, miljøbelastende og en hyppig feilkilde.</p>
                 <p>Dagens trådløse alternativer er avhengige av batterier, noe som krever hyppige batteribytter eller store kompromisser: For å spare strøm reduseres sendefrekvensen, og man mister verdifull sanntidsinnsikt.</p>
@@ -215,8 +188,8 @@
                 <p>eldION utnytter tapt spillvarme til å generere strøm via termoelektrisk effekt. Enheten drifter og leser av data fra ethvert <strong>standard 2-wire 4-20mA HART-instrument</strong> – uavhengig av leverandør – og sender målingene trådløst videre.</p>
 
                 <div style="text-align: center; margin: 30px 0;">
-                    <img src="images/skisse3.png" alt="eldION skisse" style="max-width: 100%; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/500x250?text=eldION+3D+Render'">
-                    <p style="font-size: 0.8rem; color: #888; margin-top: 10px;"><i>Plug & Play installasjon uten driftsstans.</i></p>
+                    <img src="images/skisse3.png" alt="eldION skisse" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" onerror="this.src='https://via.placeholder.com/500x250?text=eldION+3D+Render'">
+                    <p class="image-caption">Plug & Play installasjon uten driftsstans.</p>
                 </div>
 
                 <h3>Hvorfor velge oss?</h3>
@@ -253,12 +226,12 @@
                     <div class="cta-title">
                         <i data-lucide="rocket"></i> Forme fremtiden?
                     </div>
-                    <p style="font-size: 0.9rem;">Vi søker innovative partnere for <strong>pilottesting</strong>. Alt vi trenger er en ΔT på >30°C.</p>
-                    <p style="font-size: 0.9rem;"><strong>Vi tilbyr:</strong> Gratis installasjon og utstyr.</p>
-                    <p style="text-align: center; font-weight: bold; color: var(--latex-orange); margin-top: 10px;">Ta kontakt for en prat!</p>
+                    <p style="font-size: 0.9rem; color: #ddd;">Vi søker innovative partnere for <strong>pilottesting</strong>. Alt vi trenger er en ΔT på >30°C.</p>
+                    <p style="font-size: 0.9rem; color: #ddd;"><strong>Vi tilbyr:</strong> Gratis installasjon og utstyr.</p>
+                    <p style="text-align: center; font-weight: bold; color: var(--latex-orange); margin-top: 15px;">Ta kontakt for en prat!</p>
                 </div>
 
-                <h4 style="color: var(--latex-cyan); border-bottom: 1px solid #ccc; padding-bottom: 5px;">Tekniske Data</h4>
+                <h4 style="color: var(--latex-cyan); border-bottom: 1px solid var(--glass-border); padding-bottom: 5px;">Tekniske Data</h4>
                 <div class="tech-data">
                     <strong>Temperaturområde:</strong>
                     Overflate: 30°C – 250°C<br>
@@ -274,10 +247,10 @@
                     Clamp-on eller magnetisk. Ingen inngrep i prosessen.
                 </div>
 
-                <h4 style="color: var(--latex-cyan); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 40px;">Fleksibel montering</h4>
+                <h4 style="color: var(--latex-cyan); border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; margin-top: 40px;">Fleksibel montering</h4>
                 <div style="text-align: center; margin-top: 15px;">
-                    <img src="images/montering.png" alt="Montering" style="max-width: 100%;" onerror="this.src='https://via.placeholder.com/200x150?text=Skisse'">
-                    <p style="font-size: 0.8rem; color: #888;"><i>Overflatemontering</i></p>
+                    <img src="images/montering.png" alt="Montering" style="max-width: 100%; opacity: 0.9;" onerror="this.src='https://via.placeholder.com/200x150?text=Skisse'">
+                    <p class="image-caption">Overflatemontering</p>
                 </div>
 
             </aside>
