@@ -725,80 +725,140 @@ main {
 }
 
 /* =========================================
-   MOBIL-TILPASNING (FIX)
+   MOBIL-TILPASNING (INTERAKTIV VERSJON)
    ========================================= */
 
 @media (max-width: 768px) {
-    
-    /* 1. VIS LINJEN OGSÅ PÅ MOBIL */
-    .timeline-line {
-        display: block; /* Skrur den på igjen */
-        width: 4px;     /* Litt tynnere på mobil så den ikke tar for mye fokus */
-        top: 20px;      /* Justert startpunkt for mobil */
-        bottom: 20px;   /* Justert sluttpunkt for mobil */
+
+    /* 1. FIKS FOR AT FØRSTE FLIS KOMMER FOR HØYT OPP */
+    .news-section {
+        padding-top: 180px; /* Økt fra standard for å gi luft under navbar */
     }
 
-    /* 2. TILPASS KORTENE TIL Å VÆRE HØYE, IKKE BREDE */
+    /* 2. VIS LINJEN OGSÅ PÅ MOBIL */
+    .timeline-line {
+        display: block; /* Skrur den på */
+        width: 4px;     
+        top: 20px;      
+        bottom: 20px;
+        left: 20px;     /* Flytter linjen til venstre side på mobil */
+        transform: none; /* Fjerner sentrering */
+    }
+
+    /* Juster containeren så kortene flyttes til høyre for linjen */
+    .timeline-container {
+        padding: 0 10px;
+        position: relative;
+    }
+
+    .timeline-item {
+        margin-bottom: 25px;
+        justify-content: flex-end; /* Dytter kortene til høyre */
+        padding-left: 35px; /* Gir plass til linjen på venstre side */
+    }
+
+    /* 3. KORT-DESIGN MOBIL (SAMMENLEGGBART) */
     .news-card {
-        flex-direction: column; /* Legg innholdet oppå hverandre (vertikalt) */
-        height: auto;           /* La kortet bli så høyt det trenger å være */
-        min-height: 200px;
-        padding: 25px;
+        flex-direction: column;
+        height: auto;           
+        min-height: 100px; /* Lavere start-høyde når lukket */
+        padding: 20px;
         
-        /* På mobil viser vi "aktivt" design hele tiden */
         background: rgba(20, 20, 20, 0.6); 
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        transform: none !important; /* Ingen hopping */
+        border-radius: 12px;
+        
+        transform: none !important; 
+        transition: all 0.3s ease;
+        position: relative; /* For plassering av "se mer" */
     }
 
-    /* Vi fjerner hover-effekten på mobil, siden den er "alltid på" */
-    .news-card:hover {
-        transform: none;
-        box-shadow: none;
-    }
-
-    /* 3. LOGO-SEKSJONEN (ØVERST I KORTET) */
+    /* HEADER / LOGO DELEN */
     .news-visual {
-        width: 100%;       /* Full bredde */
+        width: 100%;       
         height: auto;
-        padding: 0 0 20px 0; /* Luft under logoen */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Strek under logo */
-        margin-bottom: 20px;
-        align-items: center; /* Sentrer alt */
+        padding: 0;
+        margin-bottom: 10px;
+        align-items: center; 
+        border: none;
     }
 
-    /* Logoene kan være litt mindre på mobil */
     .news-logo {
         max-height: 50px;
-        margin: 10px 0;
+        margin: 5px 0;
     }
 
     .news-visual h3 {
-        white-space: normal; /* La overskriften bryte linjer hvis den er lang */
+        white-space: normal; 
         text-align: center;
         font-size: 1.1rem;
     }
 
-    /* 4. TEKST-SEKSJONEN (NEDERST I KORTET) */
-    .news-details {
-        opacity: 1;        /* Alltid synlig! */
-        max-width: 100%;   /* Bruk all plass */
-        height: auto;
-        border-left: none; /* Fjern streken på siden */
-        padding-left: 0;
-        
-        text-align: center; /* Sentrert tekst ser ofte best ut på mobil her */
-        font-size: 0.9rem;
-    }
-
-    /* Justering av containeren for å gi plass til linjen */
-    .timeline-container {
-        padding: 20px 10px;
+    /* 4. "SE MER" KNAPP DESIGN */
+    .mobile-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: #00bfff;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        opacity: 0.8;
+        transition: opacity 0.3s;
     }
     
-    .timeline-item {
-        margin-bottom: 30px;
+    .mobile-hint i {
+        width: 14px;
+        height: 14px;
+        transition: transform 0.3s;
+    }
+
+    /* 5. TEKST-SEKSJONEN (SKJULT SOM STANDARD) */
+    .news-details {
+        max-height: 0;      /* Høyde 0 = skjult */
+        opacity: 0;         /* Usynlig */
+        overflow: hidden;   /* Skjul innhold som tyter ut */
+        padding: 0;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+        transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.3s ease;
+        text-align: center;
+    }
+
+    /* --- AKTIV TILSTAND (NÅR DU TRYKKER PÅ KORTET) --- */
+    
+    /* Når kortet har klassen 'active' (via Javascript) */
+    .news-card.active {
+        background: rgba(30, 30, 30, 0.9); /* Litt mørkere når åpen */
+        border-color: rgba(0, 191, 255, 0.3);
+    }
+
+    /* Vis teksten */
+    .news-card.active .news-details {
+        max-height: 500px; /* Nok høyde til å vise all tekst */
+        opacity: 1;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 10px;
+    }
+
+    /* Skjul eller endre "Se mer" teksten */
+    .news-card.active .mobile-hint span {
+        display: none; /* Skjuler teksten "Se mer" */
+    }
+    
+    /* Roter pilen oppover */
+    .news-card.active .mobile-hint i {
+        transform: rotate(180deg);
+    }
+}
+
+/* Skjul "Se mer" hintet på desktop */
+@media (min-width: 769px) {
+    .mobile-hint {
+        display: none;
     }
 }
