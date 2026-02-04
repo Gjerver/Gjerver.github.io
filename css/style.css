@@ -542,68 +542,59 @@ main {
 }
 
 
-/* =========================================
-   NEWS TIMELINE SECTION (FINAL FIX)
-   ========================================= */
-
-.news-section {
-    padding-top: 140px;
-    padding-bottom: 80px;
-    position: relative;
-    min-height: 80vh;
-}
-
-.news-title {
-    text-align: center;
-    font-family: 'Comfortaa', sans-serif;
-    font-size: 2.5em;
-    margin-bottom: 60px;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
-}
-
-/* --- DEN PULSERENDE LINJEN (OPPDATERT) --- */
+/* --- DEN PULSERENDE LINJEN (TYKKERE & SENTRERT) --- */
 .timeline-container {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
+    /* Vi beholder paddingen, men regner den inn i linje-plasseringen */
     padding: 20px 10px;
 }
 
 .timeline-line {
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: 0;
-    /* ENDRING: Tykkere linje for bedre synlighet */
-    width: 4px; 
-    background: rgba(255, 255, 255, 0.1);
+    
+    /* NYTT: Starter og slutter nøyaktig i midten av øverste/nederste kort.
+       (20px container-padding + 90px halv korthøyde = 110px) */
+    top: 110px;
+    bottom: 110px;
+    
+    /* NYTT: Tykkere linje (6px) */
+    width: 6px; 
+    
+    background: rgba(255, 255, 255, 0.1); /* Svak base-linje */
     transform: translateX(-50%);
     z-index: 0;
-    border-radius: 2px;
+    border-radius: 4px; /* Runder av endene pent */
 }
 
+/* Den glødende pulsen */
 .timeline-line::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 100%;
+    
+    /* Justert gradient for tydeligere "klump" med lys */
     background: linear-gradient(to bottom, 
         transparent 0%, 
-        rgba(0, 191, 255, 0) 20%, 
-        rgba(0, 191, 255, 1) 50%, 
-        rgba(0, 191, 255, 0) 80%, 
+        rgba(0, 191, 255, 0) 10%, 
+        rgba(0, 191, 255, 0.8) 50%, /* Kraftigere lys midt i pulsen */
+        rgba(0, 191, 255, 0) 90%, 
         transparent 100%);
-    background-size: 100% 200px;
+        
+    background-size: 100% 400px; /* Lengre puls for at den skal synes bedre */
     background-repeat: no-repeat;
-    /* ENDRING: Saktere animasjon (4s) */
-    animation: pulseMoveUp 4s linear infinite;
-    opacity: 0.8;
+    
+    /* Kjører animasjonen evig */
+    animation: pulseMoveUp 5s linear infinite; 
+    opacity: 1;
 }
 
-/* ENDRING: Animasjon som går OPPOVER */
+/* Animasjon som går OPPOVER (fra bunn til topp) */
 @keyframes pulseMoveUp {
-    0% { background-position: 0 120%; }
-    100% { background-position: 0 -200px; }
+    0% { background-position: 0 150%; } /* Starter langt nede */
+    100% { background-position: 0 -400px; } /* Slutter langt oppe */
 }
 
 /* --- TIDSLINJE OBJEKTER --- */
@@ -613,7 +604,11 @@ main {
     z-index: 1;
     display: flex;
     justify-content: center;
-    /* timeline-dot er fjernet herfra */
+}
+
+/* NYTT: Fjerner margin under siste kort slik at linjen treffer perfekt */
+.timeline-item:last-child {
+    margin-bottom: 0;
 }
 
 /* --- KORT-DESIGN (SVEVENDE MODERNE LOOK) --- */
