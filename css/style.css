@@ -724,34 +724,81 @@ main {
     padding-left: 20px;
 }
 
-/* --- MOBIL TILPASNING --- */
+/* =========================================
+   MOBIL-TILPASNING (FIX)
+   ========================================= */
+
 @media (max-width: 768px) {
+    
+    /* 1. VIS LINJEN OGSÅ PÅ MOBIL */
     .timeline-line {
-        display: none;
+        display: block; /* Skrur den på igjen */
+        width: 4px;     /* Litt tynnere på mobil så den ikke tar for mye fokus */
+        top: 20px;      /* Justert startpunkt for mobil */
+        bottom: 20px;   /* Justert sluttpunkt for mobil */
     }
-    
+
+    /* 2. TILPASS KORTENE TIL Å VÆRE HØYE, IKKE BREDE */
     .news-card {
-        height: auto;
+        flex-direction: column; /* Legg innholdet oppå hverandre (vertikalt) */
+        height: auto;           /* La kortet bli så høyt det trenger å være */
+        min-height: 200px;
         padding: 25px;
-        flex-direction: column;
-        text-align: center;
+        
+        /* På mobil viser vi "aktivt" design hele tiden */
+        background: rgba(20, 20, 20, 0.6); 
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform: none !important; /* Ingen hopping */
     }
-    
+
+    /* Vi fjerner hover-effekten på mobil, siden den er "alltid på" */
+    .news-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* 3. LOGO-SEKSJONEN (ØVERST I KORTET) */
     .news-visual {
-        width: 100% !important;
-        align-items: center !important;
-        padding-right: 0 !important;
+        width: 100%;       /* Full bredde */
+        height: auto;
+        padding: 0 0 20px 0; /* Luft under logoen */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Strek under logo */
         margin-bottom: 20px;
+        align-items: center; /* Sentrer alt */
     }
-    
+
+    /* Logoene kan være litt mindre på mobil */
+    .news-logo {
+        max-height: 50px;
+        margin: 10px 0;
+    }
+
+    .news-visual h3 {
+        white-space: normal; /* La overskriften bryte linjer hvis den er lang */
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    /* 4. TEKST-SEKSJONEN (NEDERST I KORTET) */
     .news-details {
-        opacity: 1;
-        max-width: 100%;
-        border-left: none;
+        opacity: 1;        /* Alltid synlig! */
+        max-width: 100%;   /* Bruk all plass */
+        height: auto;
+        border-left: none; /* Fjern streken på siden */
         padding-left: 0;
-        border-top: 1px solid rgba(255,255,255,0.2);
-        padding-top: 20px;
+        
+        text-align: center; /* Sentrert tekst ser ofte best ut på mobil her */
+        font-size: 0.9rem;
+    }
+
+    /* Justering av containeren for å gi plass til linjen */
+    .timeline-container {
+        padding: 20px 10px;
     }
     
-    .news-card:hover .news-visual { width: 100%; }
+    .timeline-item {
+        margin-bottom: 30px;
+    }
 }
