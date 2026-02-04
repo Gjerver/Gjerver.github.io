@@ -724,35 +724,30 @@ main {
     padding-left: 20px;
 }
 
-/* --- "SE MER" HINT (NY GLOBAL STIL) --- */
+/* --- "SE MER" HINT (NY GLOBAL STIL - STATISK DESKTOP) --- */
 .mobile-hint {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    /* gap er ikke nødvendig når ikonet er borte, men skader ikke */
+    gap: 5px; 
     
     /* Veldig diskré, nesten gjennomsiktig hvit */
     color: rgba(255, 255, 255, 0.3); 
     
-    font-size: 0.75rem; /* Liten tekst */
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-top: 15px; /* Litt avstand fra logoen */
-    transition: opacity 0.3s, color 0.3s;
-    cursor: pointer;
+    margin-top: 15px;
+    
+    /* VIKTIG: Ingen cursor pointer eller transition her på desktop */
+    cursor: default; 
 }
 
+/* SKJULER PILEN PÅ DESKTOP */
 .mobile-hint i {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.3s;
+    display: none; 
 }
-
-/* Gjør den litt tydeligere når man hovrer over selve teksten */
-.mobile-hint:hover {
-    color: rgba(255, 255, 255, 0.6);
-}
-
 
 /* =========================================
    MOBIL-TILPASNING (FIXED)
@@ -860,4 +855,22 @@ main {
         transform: rotate(180deg);
         color: #00bfff; /* Blir blå når åpnet */
     }
+
+
+    /* Hent frem pilen igjen på mobil */
+    .mobile-hint i {
+        display: inline-block; /* Gjør den synlig */
+        width: 14px;
+        height: 14px;
+        transition: transform 0.3s; /* Sørg for at den kan animeres */
+        margin-left: 5px;
+    }
+
+    /* Roter pilen oppover når kortet er aktivt (åpent) */
+    .news-card.active .mobile-hint i {
+        transform: rotate(180deg);
+        color: #00bfff; /* Gjør pilen blå når åpen */
+    }
+
+
 }
