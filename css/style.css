@@ -544,18 +544,16 @@ main {
 
 
 /* =========================================
-   NEWS TIMELINE SECTION
+   NEWS TIMELINE SECTION (OPPDATERT)
    ========================================= */
 
 .news-section {
-    padding-top: 140px; /* Litt mer plass fra navbar */
+    padding-top: 140px;
     padding-bottom: 80px;
     position: relative;
     min-height: 80vh;
-    overflow: hidden; /* Holder animasjoner innenfor */
 }
 
-/* Tittelen på siden */
 .news-title {
     text-align: center;
     font-family: 'Comfortaa', sans-serif;
@@ -563,49 +561,40 @@ main {
     margin-bottom: 60px;
     color: #fff;
     text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
-    position: relative;
-    z-index: 2;
 }
 
 /* --- DEN PULSERENDE LINJEN --- */
 .timeline-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 800px; /* Smalere container for penere kort */
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px 10px;
 }
 
-/* Selve linjen i bakgrunnen */
 .timeline-line {
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
     width: 2px;
-    background: rgba(255, 255, 255, 0.1); /* Svak base-linje */
+    background: rgba(255, 255, 255, 0.1);
     transform: translateX(-50%);
     z-index: 0;
-    border-radius: 2px;
 }
 
-/* Den "lysende" pulsen som beveger seg nedover */
 .timeline-line::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    /* Gradient som skaper puls-effekten */
+    top: 0; left: 0; right: 0; height: 100%;
     background: linear-gradient(to bottom, 
         transparent 0%, 
         rgba(0, 191, 255, 0) 20%, 
         rgba(0, 191, 255, 1) 50%, 
         rgba(0, 191, 255, 0) 80%, 
         transparent 100%);
-    background-size: 100% 200px; /* Hvor lang "pulsen" er */
+    background-size: 100% 200px;
     background-repeat: no-repeat;
-    animation: pulseMove 3s linear infinite; /* Farten på pulsen */
+    animation: pulseMove 3s linear infinite;
     opacity: 0.8;
 }
 
@@ -614,162 +603,155 @@ main {
     100% { background-position: 0 120%; }
 }
 
-/* --- TIDSLINJE OBJEKTER (KORTENE) --- */
+/* --- TIDSLINJE OBJEKTER --- */
 .timeline-item {
     position: relative;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     z-index: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* Sirkelen på linjen */
 .timeline-dot {
     position: absolute;
     left: 50%;
+    top: 50%; /* Sentrer dotten vertikalt i forhold til kortet */
+    transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
     background: #00bfff;
     border-radius: 50%;
-    transform: translateX(-50%);
     box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
     z-index: 2;
-    border: 3px solid #1a1a1a; /* Gjør at den popper ut fra linjen */
+    border: 3px solid #050505; /* Matcher body background */
 }
 
-/* Selve kortet */
+/* --- NYTT OG STABILT KORT-DESIGN --- */
 .news-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Mørkere bakgrunn for lesbarhet */
+    background: rgba(20, 20, 20, 0.85); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    width: 90%;
-    max-width: 800px;
-    /* Flex settings for animasjon */
+    
+    width: 100%; 
+    max-width: 650px;
+    height: 140px; /* FAST HØYDE hindrer hopping */
+    
     display: flex;
-    flex-direction: row; /* Elementer ved siden av hverandre */
     align-items: center;
-    padding: 20px;
-    cursor: pointer; /* Indikerer at man kan hovre/klikke */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
-    overflow: hidden; /* Viktig for å skjule tekst før hover */
-    min-height: 120px; /* Sikrer at kortene har lik base-høyde */
+    padding: 0 20px;
+    overflow: hidden; /* Skjuler teksten som er "utenfor" */
+    
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
 }
 
 .news-card:hover {
     transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.15);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 191, 255, 0.3);
+    border-color: rgba(0, 191, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* --- VENSTRE SIDE (Dato, Logo, Tittel) --- */
+/* Venstre side (Logo og dato) */
 .news-visual {
-    flex: 1; /* Tar all plass til å begynne med */
+    flex-shrink: 0; /* Hindrer denne i å bli knust */
+    width: 100%;    /* Starter med å ta hele plassen */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth bevegelse */
-    padding: 0 20px;
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
 }
 
 .news-date {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #00bfff;
-    font-weight: 600;
+    margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 5px;
 }
 
 .news-logo {
-    height: 50px; /* Juster etter behov */
+    max-height: 45px;
+    max-width: 180px;
     width: auto;
-    margin: 10px 0;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+    margin: 5px 0;
+    /* Gjør logoene hvite hvis de er mørke, valgfritt: */
+    /* filter: brightness(0) invert(1); */ 
 }
 
 .news-visual h3 {
-    font-family: 'Comfortaa', sans-serif;
     margin: 5px 0 0;
-    font-size: 1.3rem;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2rem;
     color: #fff;
+    white-space: nowrap; /* Hindrer teksten i å brekke over flere linjer */
 }
 
-/* --- HØYRE SIDE (Teksten som dukker opp) --- */
+/* Høyre side (Teksten) */
 .news-details {
-    flex: 0;         /* Tar ingen plass til å begynne med */
-    width: 0;        /* Ingen bredde */
-    opacity: 0;      /* Usynlig */
-    overflow: hidden;
-    color: #ccc;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    border-left: 1px solid rgba(255, 255, 255, 0.1); /* Skillelinje */
+    opacity: 0;
+    max-width: 0; /* Starter usynlig uten bredde */
+    margin-left: 0;
     
-    /* Animasjonsoverganger */
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    transform: translateX(20px); /* Starter litt til høyre */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ddd;
+    border-left: 1px solid rgba(255,255,255,0.2);
+    padding-left: 0;
+    
+    /* Smooth overgang for bredde og synlighet */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    white-space: normal; /* Lar brødteksten bryte naturlig */
+    overflow: hidden;
 }
 
 /* --- HOVER EFFEKT LOGIKK --- */
-
-/* Når man hovrer over kortet (eller trykker på mobil) */
 .news-card:hover .news-visual {
-    flex: 0 0 30%; /* Krymper venstre side til 30% bredde */
-    align-items: flex-end; /* Flytter innhold mot delelinjen */
-    padding-right: 20px;
+    width: 35%; /* Krymper venstre side */
     transform: translateX(0);
-    text-align: right; /* Justerer tekst til høyre mot linjen */
+    align-items: flex-end; /* Flytter innholdet mot streken */
+    padding-right: 20px;
 }
 
 .news-card:hover .news-details {
-    flex: 1; /* Lar teksten fylle resten av plassen (70%) */
-    width: auto;
     opacity: 1;
-    padding-left: 25px; /* Luft fra linjen */
-    transform: translateX(0); /* Glir på plass */
+    max-width: 500px; /* Lar teksten få plass */
+    padding-left: 20px;
 }
 
-/* --- RESPONSIVITET NEWS --- */
+/* --- MOBIL TILPASNING --- */
 @media (max-width: 768px) {
     .timeline-line, .timeline-dot {
-        /* På mobil kan vi vurdere å fjerne linjen midt i teksten 
-           eller flytte den til siden. Her fjerner jeg den for renhetens skyld,
-           eller vi kan beholde den bak kortene. La oss beholde den men svakere. */
-        opacity: 0.3;
-    }
-
-    .news-card {
-        flex-direction: column; /* Stack vertikalt på mobil ved hover? Nei, vi beholder side-by-side men justerer bredden */
-        padding: 15px;
-        min-height: auto;
-    }
-
-    /* Justering for mobil: Vi gjør overgangen litt enklere */
-    .news-visual {
-        padding: 10px;
-    }
-
-    .news-card:hover .news-visual {
-        flex: 0 0 auto; /* La den ta den plassen den trenger */
-        display: none; /* ALTERNATIV: Skjul logo helt på mobil hover for å gi plass til tekst? 
-                          Eller gjør den veldig liten. La oss gjøre den liten: */
-        display: flex;
-        flex: 0 0 0; 
-        opacity: 0; /* Fader ut venstre side på veldig små skjermer for å lese teksten */
-        padding: 0;
-        width: 0;
-        overflow: hidden;
+        display: none; /* Skjuler linjen på mobil for renere uttrykk */
     }
     
-    .news-card:hover .news-details {
+    .news-card {
+        height: auto; /* Lar høyden variere på mobil */
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .news-visual {
+        width: 100% !important; /* Tvinger full bredde på mobil */
+        align-items: center !important;
+        padding-right: 0 !important;
+        margin-bottom: 15px;
+    }
+    
+    .news-details {
+        opacity: 1; /* Alltid synlig på mobil */
+        max-width: 100%;
         border-left: none;
         padding-left: 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 15px;
     }
+    
+    /* Deaktiverer hover-effekten på mobil */
+    .news-card:hover .news-visual { width: 100%; }
 }
