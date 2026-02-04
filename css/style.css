@@ -557,8 +557,8 @@ main {
     
     /* NYTT: Starter og slutter nøyaktig i midten av øverste/nederste kort.
        (20px container-padding + 90px halv korthøyde = 110px) */
-    top: 110px;
-    bottom: 110px;
+    top: 150px;
+    bottom: 150px;
     
     /* NYTT: Tykkere linje (6px) */
     width: 6px; 
@@ -622,7 +622,7 @@ main {
     border-radius: 20px;
     
     /* VIKTIG: Øker høyden så ting ikke kræsjer */
-    height: 180px; 
+    height: 250px; 
     width: 100%; 
     max-width: 650px;
     
@@ -674,7 +674,7 @@ main {
 
 .news-logo {
     /* VIKTIG: Mindre logo for å få plass til alt */
-    max-height: 55px; 
+    max-height: 100px; 
     max-width: 200px;
     width: auto;
     object-fit: contain;
