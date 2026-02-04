@@ -616,130 +616,117 @@ main {
     /* timeline-dot er fjernet herfra */
 }
 
-/* --- KORT-DESIGN (TILBAKE TIL FROSTET GLASS) --- */
-/* --- KORT-DESIGN (MODERNE & FADED) --- */
+/* --- KORT-DESIGN (SVEVENDE MODERNE LOOK) --- */
 .news-card {
-    /* ENDRING: Mye mer subtil bakgrunn i "hvilemodus" */
-    background: rgba(255, 255, 255, 0.03);
+    /* HELT GJENNOMSIKTIG IDLE: Fjerner bakgrunn og kant nesten helt */
+    background: rgba(255, 255, 255, 0.01); 
+    backdrop-filter: blur(4px); /* Bare bittelitt blur til vanlig */
+    -webkit-backdrop-filter: blur(4px);
     
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.0); /* Usynlig kant */
+    border-radius: 20px;
     
-    /* ENDRING: Nesten usynlig kant i hvilemodus */
-    border: 1px solid rgba(255, 255, 255, 0.02);
-    border-radius: 15px; /* Litt rundere hjørner */
-    
-    /* ENDRING: En myk indre glød istedenfor en hard kant for å definere området */
-    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05);
-    
+    /* VIKTIG: Øker høyden så ting ikke kræsjer */
+    height: 180px; 
     width: 100%; 
     max-width: 650px;
-    height: 140px;
     
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 15px; /* Mindre padding på sidene */
     overflow: hidden;
     
-    /* La til transition for background og box-shadow også */
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: default;
 }
 
+/* NÅR DU HOVRER: Da kommer "Glass-boksen" frem */
 .news-card:hover {
-    transform: scale(1.03); /* Litt større pop */
+    transform: scale(1.02);
     
-    /* ENDRING: Når man hovrer, blir boksen tydeligere */
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 191, 255, 0.6); /* Skarp blå kant ved hover */
+    /* Nå blir den en tydelig boks */
+    background: rgba(20, 20, 20, 0.6); /* Mørkere bakgrunn for lesbarhet */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 191, 255, 0.3); /* Blåaktig kant */
     
-    /* ENDRING: Kraftigere blå glød både inni og utenpå ved hover */
-    box-shadow: 
-        0 15px 40px rgba(0, 191, 255, 0.25), /* Ytre glød */
-        inset 0 0 20px rgba(0, 191, 255, 0.1); /* Indre glød */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* ... (Koden for .news-visual, .news-date er uendret) ... */
+/* --- INNHOLDET I KORTET --- */
 
-.news-logo {
-    /* ENDRING: Redusert fra 90px til 65px for å hindre at innholdet tyter ut */
-    max-height: 65px;
-    max-width: 220px;
-    width: auto;
-    margin: 8px 0; /* Litt mer luft rundt logoen */
-    
-    /* Et lite triks for å få logoene til å se penere ut på mørk bakgrunn (valgfritt) */
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-}
-
-
-/* Venstre side */
 .news-visual {
     flex-shrink: 0;
     width: 100%;
+    height: 100%; /* Bruk hele høyden */
     display: flex;
     flex-direction: column;
+    
+    /* VIKTIG: Dette fordeler Dato, Logo og Tittel jevnt vertikalt */
+    justify-content: space-evenly; 
     align-items: center;
-    justify-content: center;
-    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
+    
+    transition: width 0.5s ease, padding 0.5s ease;
 }
 
 .news-date {
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* Litt mindre skrift for å spare plass */
     color: #00bfff;
-    margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    opacity: 0.8;
 }
 
 .news-logo {
-    /* ENDRING: Betydelig større logoer */
-    max-height: 90px;
-    max-width: 250px;
+    /* VIKTIG: Mindre logo for å få plass til alt */
+    max-height: 55px; 
+    max-width: 200px;
     width: auto;
-    margin: 5px 0;
+    object-fit: contain;
+    
+    /* Hvis logoene har hvit bakgrunn, gjør vi dem pene med rund kant */
+    border-radius: 6px; 
 }
 
 .news-visual h3 {
-    margin: 10px 0 0;
+    margin: 0;
     font-family: 'Comfortaa', sans-serif;
-    font-size: 1.3rem;
-    /* ENDRING: Farge tilpasset lysere bakgrunn */
-    color: #eee; 
+    font-size: 1.1rem; /* Litt mindre overskrift */
+    color: #fff;
     white-space: nowrap;
+    text-align: center;
 }
 
 /* Høyre side (Teksten) */
 .news-details {
     opacity: 0;
     max-width: 0;
-    margin-left: 0;
+    height: 100%; /* Fyller høyden */
+    display: flex;
+    align-items: center; /* Sentrerer teksten vertikalt */
     
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.5;
-    /* ENDRING: Farge tilpasset lysere bakgrunn */
-    color: #ccc; 
-    border-left: 1px solid rgba(255,255,255,0.2);
-    padding-left: 0;
+    color: #ccc;
     
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    
+    transition: all 0.5s ease;
     white-space: normal;
     overflow: hidden;
 }
 
-/* --- HOVER EFFEKT --- */
+/* --- HOVER LOGIKK --- */
 .news-card:hover .news-visual {
-    width: 40%; /* Litt mer plass til venstre side */
-    transform: translateX(0);
-    align-items: flex-end;
-    padding-right: 25px;
+    width: 40%; 
+    align-items: flex-end; /* Flytt innhold mot høyre */
+    padding-right: 20px;
 }
 
 .news-card:hover .news-details {
     opacity: 1;
     max-width: 500px;
-    padding-left: 25px;
+    padding-left: 20px;
 }
 
 /* --- MOBIL TILPASNING --- */
