@@ -750,7 +750,7 @@ main {
 }
 
 /* =========================================
-   MOBIL-TILPASNING (FIXED)
+   MOBIL-TILPASNING (LYS BAKGRUNN FIX)
    ========================================= */
 
 @media (max-width: 768px) {
@@ -788,10 +788,14 @@ main {
         min-height: 120px; 
         padding: 20px;
         
-        background: rgba(20, 20, 20, 0.7); /* Litt mørkere for kontrast */
+        /* ENDRING HER: Lysere bakgrunn for å matche Team-siden */
+        background: rgba(255, 255, 255, 0.05);
+        
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        /* Litt tydeligere kant på mobil siden bakgrunnen er lys */
+        border: 1px solid rgba(255, 255, 255, 0.2); 
         border-radius: 12px;
         
         transform: none !important; 
@@ -802,13 +806,12 @@ main {
         width: 100%;       
         height: auto;
         padding: 0;
-        /* margin-bottom er fjernet her for å la JS styre spacing */
         align-items: center; 
         border: none;
     }
 
     .news-logo {
-        max-height: 60px; /* Litt større logo på mobil */
+        max-height: 60px;
         margin: 10px 0;
     }
 
@@ -817,11 +820,13 @@ main {
         text-align: center;
         font-size: 1.1rem;
         margin-bottom: 5px;
+        /* Sikrer at teksten synes godt på lys bakgrunn */
+        text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
     }
 
     /* 4. TEKST-SEKSJONEN (ANIMASJON) */
     .news-details {
-        display: block; /* Sikrer at den rendres */
+        display: block;
         max-height: 0;      
         opacity: 0;         
         overflow: hidden;   
@@ -829,7 +834,6 @@ main {
         border: none;
         width: 100%;
         
-        /* Smooth overgang */
         transition: max-height 0.5s ease-in-out, opacity 0.4s ease, margin 0.3s ease;
         text-align: center;
     }
@@ -837,40 +841,23 @@ main {
     /* --- AKTIV TILSTAND (NÅR DU TRYKKER) --- */
     
     .news-card.active {
-        background: rgba(10, 10, 10, 0.9); 
-        border-color: rgba(0, 191, 255, 0.4);
+        /* ENDRING: Lysere glass (ikke svart) når den åpnes */
+        background: rgba(255, 255, 255, 0.15); 
+        border-color: rgba(0, 191, 255, 0.5);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     .news-card.active .news-details {
-        /* ØKT VERDI: Sikrer at all tekst vises selv på smal skjerm */
         max-height: 1000px; 
         opacity: 1;
         margin-top: 20px;
         padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     /* Roter pilen oppover */
     .news-card.active .mobile-hint i {
         transform: rotate(180deg);
-        color: #00bfff; /* Blir blå når åpnet */
+        color: #00bfff;
     }
-
-
-    /* Hent frem pilen igjen på mobil */
-    .mobile-hint i {
-        display: inline-block; /* Gjør den synlig */
-        width: 14px;
-        height: 14px;
-        transition: transform 0.3s; /* Sørg for at den kan animeres */
-        margin-left: 5px;
-    }
-
-    /* Roter pilen oppover når kortet er aktivt (åpent) */
-    .news-card.active .mobile-hint i {
-        transform: rotate(180deg);
-        color: #00bfff; /* Gjør pilen blå når åpen */
-    }
-
-
 }
