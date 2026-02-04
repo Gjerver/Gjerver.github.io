@@ -729,7 +729,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* gap er ikke nødvendig når ikonet er borte, men skader ikke */
+    /* gap kan fjernes siden ikonet er borte på desktop, men skader ikke */
     gap: 5px; 
     
     /* Veldig diskré, nesten gjennomsiktig hvit */
@@ -744,7 +744,7 @@ main {
     cursor: default; 
 }
 
-/* SKJULER PILEN PÅ DESKTOP */
+/* VIKTIG: DENNE LINJEN SKJULER "V"-PILEN PÅ DESKTOP */
 .mobile-hint i {
     display: none; 
 }
