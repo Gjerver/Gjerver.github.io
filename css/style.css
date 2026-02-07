@@ -1,4 +1,6 @@
-/* NY REGEL: Myk scrolling for hele siden */
+/* =========================================
+   1. GENERELLE REGLER & BODY
+   ========================================= */
 html {
     scroll-behavior: smooth;
     height: 100%; /* Nødvendig for sticky footer */
@@ -28,7 +30,9 @@ body {
     min-height: 100vh;
 }
 
-/* --- NAVBAR --- */
+/* =========================================
+   2. NAVBAR
+   ========================================= */
 .navbar {
     display: flex;
     align-items: center;
@@ -127,7 +131,9 @@ body {
 }
 
 
-/* --- HERO-SEKSJON (FORSIDE) --- */
+/* =========================================
+   3. HERO-SEKSJON (FORSIDE)
+   ========================================= */
 main {
     padding-top: 90px; /* plass til navbar */
     /* -- REGEL FOR STICKY FOOTER -- */
@@ -172,35 +178,9 @@ main {
     }
 }
 
-/* --- RESPONSIVITET (FØRSTE BLOKK) --- */
-@media (max-width: 900px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        justify-content: center;
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-links a {
-        margin: 5px 0;
-    }
-
-    /* Mobil-fiks for hero-tekst */
-    .hero-image {
-        justify-content: center;
-        align-items: center;
-    }
-
-    .hero-text {
-        text-align: center;
-    }
-}
-
-/* --- TEAM SECTION --- */
+/* =========================================
+   4. TEAM SECTION
+   ========================================= */
 .team-section {
     padding-top: 120px;
     text-align: center;
@@ -324,7 +304,9 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- STILER FOR INNHOLDSSIDER (f.eks. goal.html) --- */
+/* =========================================
+   5. STILER FOR INNHOLDSSIDER (Løsningen)
+   ========================================= */
 .page-content {
     padding-top: 120px;
     padding-bottom: 40px;
@@ -393,7 +375,9 @@ main {
     border-left: 4px solid #00bfff;
 }
 
-/* --- STILER FOR KONTAKTSIDE --- */
+/* =========================================
+   6. STILER FOR KONTAKTSIDE
+   ========================================= */
 .contact-page {
     max-width: 700px;
     padding: 120px 20px 40px 20px;
@@ -517,8 +501,34 @@ main {
     margin: 0;
 }
 
-/* --- RESPONSIV FIKS (SISTE BLOKK) --- */
+/* --- GENERELLE RESPONSIVITETS-REGLER --- */
 @media (max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .nav-links a {
+        margin: 5px 0;
+    }
+
+    /* Mobil-fiks for hero-tekst */
+    .hero-image {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+    
     .page-content,
     .team-section,
     .contact-page {
@@ -541,63 +551,48 @@ main {
     }
 }
 
+/* =========================================
+   8. NEWS SECTION - PC LAYOUT (MODERNE)
+   ========================================= */
 
-/* --- DEN PULSERENDE LINJEN (TYKKERE & SENTRERT) --- */
+.news-section {
+    padding-top: 140px;
+    padding-bottom: 80px;
+}
+
 .timeline-container {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
-    /* Vi beholder paddingen, men regner den inn i linje-plasseringen */
     padding: 20px 10px;
 }
 
 .timeline-line {
     position: absolute;
     left: 50%;
-    
-    /* NYTT: Starter og slutter nøyaktig i midten av øverste/nederste kort.
-       (20px container-padding + 90px halv korthøyde = 110px) */
     top: 150px;
     bottom: 150px;
-    
-    /* NYTT: Tykkere linje (6px) */
     width: 6px; 
-    
-    background: rgba(255, 255, 255, 0.1); /* Svak base-linje */
+    background: rgba(255, 255, 255, 0.1);
     transform: translateX(-50%);
     z-index: 0;
-    border-radius: 4px; /* Runder av endene pent */
+    border-radius: 4px;
 }
 
-/* Den glødende pulsen */
 .timeline-line::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 100%;
-    
-    /* Justert gradient for tydeligere "klump" med lys */
-    background: linear-gradient(to bottom, 
-        transparent 0%, 
-        rgba(0, 191, 255, 0) 10%, 
-        rgba(0, 191, 255, 0.8) 50%, /* Kraftigere lys midt i pulsen */
-        rgba(0, 191, 255, 0) 90%, 
-        transparent 100%);
-        
-    background-size: 100% 400px; /* Lengre puls for at den skal synes bedre */
-    background-repeat: no-repeat;
-    
-    /* Kjører animasjonen evig */
-    animation: pulseMoveUp 5s linear infinite; 
-    opacity: 1;
+    background: linear-gradient(to bottom, transparent, rgba(0, 191, 255, 0.8) 50%, transparent);
+    background-size: 100% 400px;
+    animation: pulseMoveUp 5s linear infinite;
 }
 
-/* Animasjon som går OPPOVER (fra bunn til topp) */
 @keyframes pulseMoveUp {
-    0% { background-position: 0 150%; } /* Starter langt nede */
-    100% { background-position: 0 -400px; } /* Slutter langt oppe */
+    0% { background-position: 0 150%; }
+    100% { background-position: 0 -400px; }
 }
 
-/* --- TIDSLINJE OBJEKTER --- */
 .timeline-item {
     position: relative;
     margin-bottom: 40px;
@@ -606,261 +601,111 @@ main {
     justify-content: center;
 }
 
-/* NYTT: Fjerner margin under siste kort slik at linjen treffer perfekt */
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-
-/* --- KORT-DESIGN (SVEVENDE MODERNE LOOK) --- */
 .news-card {
-    /* HELT GJENNOMSIKTIG IDLE: Fjerner bakgrunn og kant nesten helt */
+    display: flex; /* Horisontal på PC */
+    align-items: center;
     background: rgba(255, 255, 255, 0.01); 
-    backdrop-filter: blur(4px); /* Bare bittelitt blur til vanlig */
-    -webkit-backdrop-filter: blur(4px);
-    
-    border: 1px solid rgba(255, 255, 255, 0.0); /* Usynlig kant */
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.0); 
     border-radius: 20px;
-    
-    /* VIKTIG: Øker høyden så ting ikke kræsjer */
     height: 250px; 
     width: 100%; 
     max-width: 650px;
-    
-    display: flex;
-    align-items: center;
-    padding: 0 15px; /* Mindre padding på sidene */
+    padding: 0 15px;
     overflow: hidden;
-    
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    cursor: default;
 }
 
-/* NÅR DU HOVRER: Da kommer "Glass-boksen" frem */
 .news-card:hover {
     transform: scale(1.02);
-    
-    /* Nå blir den en tydelig boks */
-    background: rgba(20, 20, 20, 0.6); /* Mørkere bakgrunn for lesbarhet */
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 191, 255, 0.3); /* Blåaktig kant */
-    
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(0, 191, 255, 0.3);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
-
-/* --- INNHOLDET I KORTET --- */
 
 .news-visual {
     flex-shrink: 0;
     width: 100%;
-    height: 100%; /* Bruk hele høyden */
+    height: 100%;
     display: flex;
     flex-direction: column;
-    
-    /* VIKTIG: Dette fordeler Dato, Logo og Tittel jevnt vertikalt */
     justify-content: space-evenly; 
     align-items: center;
-    
-    transition: width 0.5s ease, padding 0.5s ease;
-}
-
-.news-date {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem; /* Litt mindre skrift for å spare plass */
-    color: #00bfff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.8;
+    transition: width 0.5s ease;
 }
 
 .news-logo {
-    /* VIKTIG: Mindre logo for å få plass til alt */
-    max-height: 100px; 
+    max-height: 100px; /* Tvinger riktig størrelse */
     max-width: 200px;
     width: auto;
     object-fit: contain;
-    
-    /* Hvis logoene har hvit bakgrunn, gjør vi dem pene med rund kant */
-    border-radius: 6px; 
 }
 
-.news-visual h3 {
-    margin: 0;
-    font-family: 'Comfortaa', sans-serif;
-    font-size: 1.1rem; /* Litt mindre overskrift */
-    color: #fff;
-    white-space: nowrap;
-    text-align: center;
-}
+.news-date { font-size: 0.75rem; color: #00bfff; text-transform: uppercase; }
+.news-visual h3 { color: #fff; font-size: 1.1rem; white-space: nowrap; }
 
-/* Høyre side (Teksten) */
 .news-details {
     opacity: 0;
     max-width: 0;
-    height: 100%; /* Fyller høyden */
+    height: 100%;
     display: flex;
-    align-items: center; /* Sentrerer teksten vertikalt */
-    
+    align-items: center;
     font-size: 0.9rem;
-    line-height: 1.5;
     color: #ccc;
-    
     border-left: 1px solid rgba(255,255,255,0.1);
-    
     transition: all 0.5s ease;
-    white-space: normal;
     overflow: hidden;
 }
 
-/* --- HOVER LOGIKK --- */
-.news-card:hover .news-visual {
-    width: 40%; 
-    align-items: flex-end; /* Flytt innhold mot høyre */
-    padding-right: 20px;
-}
+.news-card:hover .news-visual { width: 40%; align-items: flex-end; padding-right: 20px; }
+.news-card:hover .news-details { opacity: 1; max-width: 500px; padding-left: 20px; }
 
-.news-card:hover .news-details {
-    opacity: 1;
-    max-width: 500px;
-    padding-left: 20px;
-}
-
-/* --- "SE MER" HINT (NY GLOBAL STIL - STATISK DESKTOP) --- */
-.mobile-hint {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* gap kan fjernes siden ikonet er borte på desktop, men skader ikke */
-    gap: 5px; 
-    
-    /* Veldig diskré, nesten gjennomsiktig hvit */
-    color: rgba(255, 255, 255, 0.3); 
-    
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 15px;
-    
-    /* VIKTIG: Ingen cursor pointer eller transition her på desktop */
-    cursor: default; 
-}
-
-/* VIKTIG: DENNE LINJEN SKJULER "V"-PILEN PÅ DESKTOP */
-.mobile-hint i {
-    display: none; 
-}
+/* Skjul "Se mer" på PC */
+.mobile-hint { display: none; }
 
 /* =========================================
-   MOBIL-TILPASNING (SMOOTH GRID ANIMATION)
+   9. SPESIFIKK NYHETS-FIX FOR MOBIL (ACCORDION)
    ========================================= */
 
 @media (max-width: 768px) {
+    .news-section { padding-top: 180px; }
+    .timeline-line { left: 20px; transform: none; top: 20px; bottom: 20px; }
+    .timeline-item { justify-content: flex-end; padding-left: 35px; margin-bottom: 25px; }
 
-    /* 1. LAYOUT OG LINJE */
-    .news-section {
-        padding-top: 180px; 
-    }
-
-    .timeline-line {
-        display: block; 
-        width: 4px;     
-        top: 20px;      
-        bottom: 20px;
-        left: 20px;     
-        transform: none; 
-    }
-
-    .timeline-container {
-        padding: 0 10px;
-        position: relative;
-    }
-
-    .timeline-item {
-        margin-bottom: 25px;
-        justify-content: flex-end; 
-        padding-left: 35px;
-    }
-
-    /* 2. KORT-DESIGN */
     .news-card {
-        flex-direction: column;
-        height: auto;           
-        padding: 20px;
-        
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        
-        border: 1px solid rgba(255, 255, 255, 0.2); 
-        border-radius: 12px;
-        
-        transform: none !important; 
-        /* Myk overgang på farge og border */
-        transition: background-color 0.4s ease, border-color 0.4s ease;
-    }
-
-    .news-visual {
-        width: 100%;       
+        flex-direction: column; /* Vertikal på mobil */
         height: auto;
-        padding: 0;
-        align-items: center; 
-        border: none;
-        flex-shrink: 0; /* Hindrer headeren i å krympe under animasjon */
+        min-height: 140px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .news-logo {
-        max-height: 60px;
-        margin: 10px 0;
-    }
+    .news-visual { width: 100% !important; height: auto; align-items: center !important; padding: 0 !important; }
+    .news-logo { max-height: 60px; }
+    .news-visual h3 { white-space: normal; text-align: center; }
 
-    .news-visual h3 {
-        white-space: normal; 
-        text-align: center;
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
-    }
-
-    /* 3. TEKST-ANIMASJON (GRID TRICK) */
-    /* Dette er trikset for perfekt animasjon */
+    /* Smart Grid animasjon for mobil */
     .news-details {
         display: grid;
-        grid-template-rows: 0fr; /* Start lukket (0 høyde) */
-        
+        grid-template-rows: 0fr; /* Starter lukket */
         opacity: 0;
+        max-width: 100% !important;
         border: none;
-        width: 100%;
-        margin-top: 0;
-        padding-top: 0;
-        
-        /* Vi animerer rutenettet (høyden) og margin/padding samtidig */
-        transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                    opacity 0.5s ease,
-                    margin-top 0.5s ease,
-                    padding-top 0.5s ease;
+        transition: grid-template-rows 0.5s ease, opacity 0.5s ease;
     }
 
-    /* Den indre wrapperen må skjule overflow for at animasjonen skal funke */
-    .news-content-inner {
-        overflow: hidden;
-        text-align: center;
-        /* Padding bør ligge på den indre containeren for å unngå hopp */
-    }
+    .news-content-inner { overflow: hidden; text-align: center; }
 
-    /* --- AKTIV TILSTAND (ÅPEN) --- */
+    .news-card.active { background: rgba(255, 255, 255, 0.15); border-color: #00bfff; }
+    .news-card.active .news-details { grid-template-rows: 1fr; opacity: 1; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
     
-    .news-card.active {
-        background: rgba(255, 255, 255, 0.15); 
-        border-color: rgba(0, 191, 255, 0.5);
-        box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-    }
-
-    .news-card.active .news-details {
-        /* Åpne rutenettet til "1 fraction" (full høyde av innholdet) */
-        grid-template-rows: 1fr;
-        
-        opacity: 1;
-        margin-top: 20px;  
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /* Vis "Se mer" på mobil */
+    .mobile-hint {
+        display: block;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        margin-top: 10px;
     }
 }
