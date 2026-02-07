@@ -583,9 +583,16 @@ main {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 100%;
+    
+    /* Samme gradient som før */
     background: linear-gradient(to bottom, transparent, rgba(0, 191, 255, 0.8) 50%, transparent);
+    
+    /* Lengden på lysstrålen */
     background-size: 100% 400px;
-    animation: pulseMoveUp 5s linear infinite;
+    background-repeat: no-repeat;
+    
+    /* ENDRING: Økt fra 5s til 8s for roligere puls */
+    animation: pulseMoveUp 8s linear infinite;
 }
 
 @keyframes pulseMoveUp {
