@@ -750,17 +750,16 @@ main {
 }
 
 /* =========================================
-   MOBIL-TILPASNING (LYS BAKGRUNN FIX)
+   MOBIL-TILPASNING (SMOOTH GRID ANIMATION)
    ========================================= */
 
 @media (max-width: 768px) {
 
-    /* 1. DYTTER FØRSTE FLIS NED */
+    /* 1. LAYOUT OG LINJE */
     .news-section {
         padding-top: 180px; 
     }
 
-    /* 2. VISER LINJEN PÅ MOBIL */
     .timeline-line {
         display: block; 
         width: 4px;     
@@ -778,28 +777,25 @@ main {
     .timeline-item {
         margin-bottom: 25px;
         justify-content: flex-end; 
-        padding-left: 35px; /* Plass til linjen */
+        padding-left: 35px;
     }
 
-    /* 3. KORT-DESIGN MOBIL */
+    /* 2. KORT-DESIGN */
     .news-card {
         flex-direction: column;
         height: auto;           
-        min-height: 120px; 
         padding: 20px;
         
-        /* ENDRING HER: Lysere bakgrunn for å matche Team-siden */
         background: rgba(255, 255, 255, 0.05);
-        
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         
-        /* Litt tydeligere kant på mobil siden bakgrunnen er lys */
         border: 1px solid rgba(255, 255, 255, 0.2); 
         border-radius: 12px;
         
         transform: none !important; 
-        transition: all 0.3s ease;
+        /* Myk overgang på farge og border */
+        transition: background-color 0.4s ease, border-color 0.4s ease;
     }
 
     .news-visual {
@@ -808,6 +804,7 @@ main {
         padding: 0;
         align-items: center; 
         border: none;
+        flex-shrink: 0; /* Hindrer headeren i å krympe under animasjon */
     }
 
     .news-logo {
@@ -820,44 +817,50 @@ main {
         text-align: center;
         font-size: 1.1rem;
         margin-bottom: 5px;
-        /* Sikrer at teksten synes godt på lys bakgrunn */
         text-shadow: 0 2px 5px rgba(0,0,0,0.5); 
     }
 
-    /* 4. TEKST-SEKSJONEN (ANIMASJON) */
+    /* 3. TEKST-ANIMASJON (GRID TRICK) */
+    /* Dette er trikset for perfekt animasjon */
     .news-details {
-        display: block;
-        max-height: 0;      
-        opacity: 0;         
-        overflow: hidden;   
-        padding: 0;
+        display: grid;
+        grid-template-rows: 0fr; /* Start lukket (0 høyde) */
+        
+        opacity: 0;
         border: none;
         width: 100%;
+        margin-top: 0;
+        padding-top: 0;
         
-        transition: max-height 0.5s ease-in-out, opacity 0.4s ease, margin 0.3s ease;
-        text-align: center;
+        /* Vi animerer rutenettet (høyden) og margin/padding samtidig */
+        transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.5s ease,
+                    margin-top 0.5s ease,
+                    padding-top 0.5s ease;
     }
 
-    /* --- AKTIV TILSTAND (NÅR DU TRYKKER) --- */
+    /* Den indre wrapperen må skjule overflow for at animasjonen skal funke */
+    .news-content-inner {
+        overflow: hidden;
+        text-align: center;
+        /* Padding bør ligge på den indre containeren for å unngå hopp */
+    }
+
+    /* --- AKTIV TILSTAND (ÅPEN) --- */
     
     .news-card.active {
-        /* ENDRING: Lysere glass (ikke svart) når den åpnes */
         background: rgba(255, 255, 255, 0.15); 
         border-color: rgba(0, 191, 255, 0.5);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 25px rgba(0,0,0,0.4);
     }
 
     .news-card.active .news-details {
-        max-height: 1000px; 
+        /* Åpne rutenettet til "1 fraction" (full høyde av innholdet) */
+        grid-template-rows: 1fr;
+        
         opacity: 1;
-        margin-top: 20px;
+        margin-top: 20px;  
         padding-top: 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Roter pilen oppover */
-    .news-card.active .mobile-hint i {
-        transform: rotate(180deg);
-        color: #00bfff;
     }
 }
