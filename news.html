@@ -1,4 +1,31 @@
-<main class="news-section fade-in">
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyheter - eldION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo2.png" type="image/png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-section">
+            <a href="index.html" class="home-link">
+                <img src="images/ny_logo.png" alt="eldION logo" class="logo">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="goal.html">Løsningen</a>
+            <a href="team.html">Om oss</a>
+            <a href="news.html" class="active">Nyheter</a>
+            <a href="contact.html">Kontakt oss</a>
+        </nav>
+    </header>
+
+    <main class="news-section fade-in">
         <div class="timeline-container">
             <div class="timeline-line"></div>
 
@@ -108,7 +135,7 @@
                     </div>
                     <div class="news-details">
                         <div class="news-content-inner">
-                            <p>Prosjektet mottar støtte fra Plogen-programmet, et initiativ fra Validé og UiS som finansierer forskningsbasert innovasjon med kommersielt potensial. Midlene er i utgangspunktet forbeholdt fast ansatte ved universitetet, men det gjøres unntaksvis tildelinger til studentprosjekter etter særskilt vurdering. Støtten finansierer materialer til utvikling av vår første prototype.</p>
+                            <p>Prosjektet mottar støtte fra Plogen-programmet, et initiativ fra Validé og UiS som finansierer forskningsbasert innovasjon med kommersielt potensial. Midlene finansierer materialer til utvikling av vår første prototype.</p>
                         </div>
                     </div>
                 </div>
@@ -139,30 +166,18 @@
     </footer>
 
     <script>
-        // Start ikoner
         lucide.createIcons();
-
-        // AUTOMATISK LUKKING (ACCORDION)
         const cards = document.querySelectorAll('.news-card');
 
         cards.forEach(card => {
             card.addEventListener('click', function(e) {
-                // Hindrer at man trykker på lenker inni kortet
                 if(e.target.tagName === 'A') return;
-
                 const isAlreadyActive = this.classList.contains('active');
-
-                // 1. LUKK ALLE ANDRE (Reset)
-                // Dette er nøkkelen til at det ikke blir rotete
                 cards.forEach(c => c.classList.remove('active'));
-
-                // 2. HVIS DET IKKE VAR ÅPENT, ÅPNE DET NÅ
                 if (!isAlreadyActive) {
                     this.classList.add('active');
-                    
-                    // Liten "scroll-to" funksjon for å sikre at kortet synes
                     setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 300);
                 }
             });
