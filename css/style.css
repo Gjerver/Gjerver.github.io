@@ -608,6 +608,10 @@ main {
     justify-content: center;
 }
 
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
 .news-card {
     display: flex; /* Horisontal på PC */
     align-items: center;
@@ -621,6 +625,7 @@ main {
     padding: 0 15px;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: default;
 }
 
 .news-card:hover {
@@ -649,7 +654,7 @@ main {
 }
 
 .news-date { font-size: 0.75rem; color: #00bfff; text-transform: uppercase; }
-.news-visual h3 { color: #fff; font-size: 1.1rem; white-space: nowrap; }
+.news-visual h3 { color: #fff; font-size: 1.1rem; white-space: nowrap; text-align: center; }
 
 .news-details {
     opacity: 0;
@@ -658,9 +663,11 @@ main {
     display: flex;
     align-items: center;
     font-size: 0.9rem;
+    line-height: 1.5;
     color: #ccc;
     border-left: 1px solid rgba(255,255,255,0.1);
     transition: all 0.5s ease;
+    white-space: normal;
     overflow: hidden;
 }
 
@@ -668,18 +675,26 @@ main {
 .news-card:hover .news-details { opacity: 1; max-width: 500px; padding-left: 20px; }
 
 /* Skjul "Se mer" på PC */
+.mobile-hint { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; 
+    color: rgba(255, 255, 255, 0.3); 
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    cursor: default; 
+}
+
+/* Skjul "Se mer" på desktop ved å sette display none på containeren om ønskelig, 
+   men her skjuler vi bare ikonet som avtalt */
 .mobile-hint { display: none; }
 
-/* =========================================
-   9. SPESIFIKK NYHETS-FIX FOR MOBIL (ACCORDION)
-   ========================================= */
 
 /* =========================================
-   10. MOBIL-TILPASNING & FIXES
-   ========================================= */
-
-/* =========================================
-   10. MOBIL-TILPASNING & FIXES (2 KOLONNER FIX)
+   9. MOBIL-TILPASNING & FIXES (2 KOLONNER FIX)
    ========================================= */
 
 @media (max-width: 768px) {
@@ -777,4 +792,7 @@ main {
         text-transform: uppercase;
         margin-top: 10px;
     }
+    
+    /* Sikrer at ikonet (hvis det finnes i HTML) ikke vises */
+    .mobile-hint i { display: none; }
 }
