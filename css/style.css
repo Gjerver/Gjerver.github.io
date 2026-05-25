@@ -73,7 +73,7 @@ body {
 
 .subtitle {
     font-size: 0.9em;
-    color: #ccc;
+    color: #fff;
     margin: 0;
 }
 
@@ -239,7 +239,7 @@ main {
 
 .team-member p {
     font-size: 0.95em;
-    color: #ccc;
+    color: #fff;
 }
 
 /* NY REGEL: Wrapper for "Elsker/Hater" */
@@ -262,7 +262,7 @@ main {
 
 /* Stil for selve e-post-lenken */
 .team-member .team-email a {
-    color: #ccc;
+    color: #fff;
     text-decoration: none;
     transition: color 0.2s ease, text-shadow 0.2s ease;
 }
@@ -394,7 +394,7 @@ main {
     
 .contact-page .intro-text {
     font-size: 1.2rem;
-    color: #ccc;
+    color: #fff;
     margin-bottom: 40px;
 }
     
