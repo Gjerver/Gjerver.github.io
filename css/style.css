@@ -10,24 +10,30 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-    /* Bakgrunnsbilde-innstillinger */
-    background-image: url('../images/gemini3.png'); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Standard er 'fixed' for desktop */
-    background-repeat: no-repeat;
-    
-    /* Fallback-farge hvis bildet ikke laster */
-    background-color: #050505; 
-    
     color: #fff; /* Hvit tekstfarge */
 
     /* -- REGLER FOR STICKY FOOTER -- */
     display: flex;
     flex-direction: column;
-    /* Sørger for at body er MINST like høy som nettleservinduet */
     min-height: 100vh;
+}
+
+/* NY REGEL: Dette låser bakgrunnen perfekt til skjermen uansett enhet */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url('../images/gemini3.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #050505; 
+    
+    z-index: -1; /* Legger bildet helt bakerst */
 }
 
 /* =========================================
@@ -535,19 +541,9 @@ main {
         padding-top: 170px; /* Mer plass til høy navbar */
     }
 
-    /*
-     * FIKS FOR "HAKK" OG "SVART BAKGRUNN" PÅ MOBIL:
-     * 1. Vi lar bakgrunnen scrolle med siden for å unngå "hakk".
-     * 2. Vi skrur av 'min-height: 100vh' for å unngå "svart bakgrunn".
-    */
+/* Deaktiverer sticky footer på mobil */
     body {
-        background-attachment: scroll;
-        min-height: 0; /* Deaktiverer sticky footer på mobil */
-    }
-
-    /* Vi fjerner også 'min-height: 100vh' fra html-taggen på mobil */
-    html {
-        height: auto;
+        min-height: 0; 
     }
 }
 
