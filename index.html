@@ -1,652 +1,798 @@
-<!DOCTYPE html>
-<html lang="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eldION</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="images/logo2.png" type="image/png">
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
+/* =========================================
+   1. GENERELLE REGLER & BODY
+   ========================================= */
+html {
+    scroll-behavior: smooth;
+    height: 100%; /* Nødvendig for sticky footer */
+}
 
-    <style>
-        /* --- TILLEGGSSTILER FOR ONE-PAGE LAYOUT --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff; /* Hvit tekstfarge */
+
+    /* -- REGLER FOR STICKY FOOTER -- */
+    display: flex;
+    flex-direction: column;
+    /* Sørger for at body er MINST like høy som nettleservinduet */
+    min-height: 100vh;
+}
+
+/* NY REGEL: Dette låser bakgrunnen perfekt til skjermen uansett enhet */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url('../images/gemini3.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #050505; 
+    
+    z-index: -1; /* Legger bildet helt bakerst */
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10, 10, 10, 0.45);
+    padding: 10px clamp(10px, 4vw, 60px); /* dynamisk padding */
+    
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    flex-wrap: wrap; /* tillat brytning */
+    box-sizing: border-box;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto; /* behold størrelse */
+    min-width: 200px;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+.logo-text h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.6em;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.9em;
+    color: #fff;
+    margin: 0;
+}
+
+/* --- NAV LINKS --- */
+.nav-links {
+    display: flex;
+    flex-wrap: wrap; /* dette lar lenker hoppe til ny linje */
+    justify-content: flex-end;
+    gap: clamp(10px, 2vw, 30px); /* dynamisk mellomrom */
+    flex: 1 1 auto;
+    min-width: 200px;
+    text-align: right;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    /* ENDRING: Legg til 'transform' i overgangen */
+    transition: color 0.2s ease, transform 0.2s ease; 
+    white-space: nowrap;
+    display: inline-block; /* Nødvendig for at transform skal funke */
+}
+
+.nav-links a:hover {
+    color: #00bfff;
+    /* NY: Legg til et lite løft */
+    transform: translateY(-2px);
+}
+
+/* Stil for lenker som ikke er klare enda */
+.nav-links a[href="#"] {
+    color: #888; /* Gråer den ut */
+    opacity: 0.6;
+    cursor: not-allowed; /* Viser "ikke tilgjengelig"-markør */
+}
+
+.nav-links a[href="#"]:hover {
+    color: #888; /* Hindrer at den får hover-fargen */
+    transform: none; /* Fjerner løft-effekten */
+}
+
+/* FORSLAG 2: Stil for aktiv navigasjonslenke */
+.nav-links a.active {
+    color: #00bfff; /* Samme som hover-fargen */
+    font-weight: 700; /* Gjør den litt dristigere */
+}
+
+/* Tydelig markering for tastatur-brukere */
+.nav-links a:focus-visible {
+    outline: 2px solid #00bfff; /* Samme farge som hover */
+    outline-offset: 3px;
+    border-radius: 4px;
+    color: #00bfff;
+}
+
+
+/* =========================================
+   3. HERO-SEKSJON (FORSIDE)
+   ========================================= */
+main {
+    padding-top: 90px; /* plass til navbar */
+    /* -- REGEL FOR STICKY FOOTER -- */
+    /* Gjør at main-innholdet strekker seg og dytter footeren ned */
+    flex-grow: 1;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: flex-end;  /* Høyre */
+    align-items: flex-end;      /* Bunn */
+    height: calc(100vh - 90px);
+    padding: 4vw;
+    box-sizing: border-box;
+}
+
+.hero-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem); /* Responsiv størrelse */
+    font-weight: 600;
+    color: #E0E0E0; /* Lys grå */
+    text-align: right;
+    max-width: 600px; /* Begrenser bredde */
+    line-height: 1.4;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); 
+    
+    animation: mistyFadeIn 2.5s ease-out forwards;
+    opacity: 0; /* Starter usynlig */
+}
+
+/* Animasjon for "tåke"-tekst */
+@keyframes mistyFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0);
+    }
+}
+
+/* =========================================
+   4. TEAM SECTION
+   ========================================= */
+.team-section {
+    padding-top: 120px;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-family: 'Comfortaa', sans-serif;
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Sørger for at kortene blir like høye */
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 0 5%;
+}
+
+.team-member {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+    
+    /* NYE REGLER FOR Å STYRE INNHOLD INTERNT */
+    display: flex;
+    flex-direction: column;
+    /* VIKTIG: Gi space-between slik at info-content dytter sosiale lenker ned */
+    justify-content: space-between; 
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+
+.team-member > img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    margin: 10px 0 5px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.team-member p {
+    font-size: 0.95em;
+    color: #fff;
+}
+
+/* NY REGEL: Wrapper for "Elsker/Hater" */
+.team-info-content {
+    flex-grow: 1; /* Tvinger denne div-en til å fylle tomrommet */
+    display: flex;
+    flex-direction: column;
+    /* NY: Justerer innholdet (beskrivelsen, elsker, hater) til bunnen av denne wrapperen */
+    justify-content: flex-end; 
+}
+
+/* Stil for e-post-paragrafen */
+.team-member .team-email {
+    font-size: 0.9em;
+    margin: -5px 0 10px 0;
+    color: #aaa;
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* Stil for selve e-post-lenken */
+.team-member .team-email a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.team-member .team-email a:hover {
+    color: #00bfff;
+    text-decoration: underline;
+    text-shadow: 0 0 6px rgba(0, 191, 255, 0.6);
+}
+
+/* Container for sosiale medier-ikoner */
+.social-links {
+    margin-top: 20px; /* Tilbake til fast margin */
+    text-align: center;
+}
+
+/* Selve LinkedIn-ikonet */
+.social-icon {
+    width: 24px;  /* Justert størrelse */
+    height: 24px; /* Justert størrelse */
+    border-radius: 4px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0.75;
+}
+
+/* Hover-effekt på ikonet */
+.social-links a:hover .social-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* --- PAGE FADE-IN ANIMATION --- */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   5. STILER FOR INNHOLDSSIDER (Løsningen)
+   ========================================= */
+.page-content {
+    padding-top: 120px;
+    padding-bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.content-card {
+    max-width: 900px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: clamp(25px, 5vw, 45px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    line-height: 1.7;
+    font-size: 1.05em;
+
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-3px); /* Løfter seg litt */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+
+.content-card h2, 
+.content-card h3 {
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.content-card h2 {
+    font-size: clamp(1.8em, 4vw, 2.2em);
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #00bfff;
+    line-height: 1.3;
+}
+
+.content-card h3 {
+    font-size: clamp(1.3em, 3vw, 1.6em);
+    margin-top: 35px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.content-card p {
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.content-card .highlight {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(0, 191, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #00bfff;
+}
+
+/* =========================================
+   6. STILER FOR KONTAKTSIDE
+   ========================================= */
+.contact-page {
+    max-width: 700px;
+    padding: 120px 20px 40px 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+    
+.contact-page h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+    
+.contact-page .intro-text {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 40px;
+}
+    
+.contact-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Fin kant */
+}
+    
+.contact-page label {
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 5px;
+}
+    
+.contact-page input,
+.contact-page select,
+.contact-page textarea {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1rem;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+    
+.contact-page select {
+    color: #fff;
+    background-color: rgba(255,255,255,0.15);
+}
+    
+.contact-page option {
+    color: #000;
+    background: #fff;
+}
+    
+.contact-page input:focus,
+.contact-page select:focus,
+.contact-page textarea:focus {
+    outline: 2px solid #00bfff;
+    background: rgba(255,255,255,0.25);
+}
+    
+.contact-page textarea {
+    height: 120px;
+    resize: none;
+}
+    
+.contact-page button {
+    background: linear-gradient(135deg, #00bfff, #0099cc);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+    
+.contact-page button:hover {
+    background: linear-gradient(135deg, #00a0d1, #00c3ff);
+    transform: scale(1.03);
+}
+    
+.contact-page .contact-info {
+    margin-top: 40px;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+    
+.contact-page .contact-info strong {
+    color: #00bfff;
+}
+    
+/* --- FOOTER --- */
+.site-footer {
+    text-align: center;
+    padding: 25px 20px; /* Redusert padding her */
+    margin-top: 50px; /* Gir litt pusterom fra innholdet over */
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(5px);
+    font-size: 0.9em;
+    color: #aaa;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+/* --- GENERELLE RESPONSIVITETS-REGLER --- */
+@media (max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .nav-links a {
+        margin: 5px 0;
+    }
+
+    /* Mobil-fiks for hero-tekst */
+    .hero-image {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+    
+    .page-content,
+    .team-section,
+    .contact-page {
+        padding-top: 170px; /* Mer plass til høy navbar */
+    }
+
+    /* Deaktiverer sticky footer på mobil, resten av fiksen ligger i body::before */
+    body {
+        min-height: 0; 
+    }
+
+    /* Vi fjerner også 'min-height: 100vh' fra html-taggen på mobil */
+    html {
+        height: auto;
+    }
+}
+
+/* =========================================
+   8. NEWS SECTION - PC LAYOUT (MODERNE)
+   ========================================= */
+
+.news-section {
+    padding-top: 140px;
+    padding-bottom: 80px;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 10px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 150px;
+    bottom: 150px;
+    width: 6px; 
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-50%);
+    z-index: 0;
+    border-radius: 4px;
+}
+
+.timeline-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100%;
+    
+    /* Samme gradient som før */
+    background: linear-gradient(to bottom, transparent, rgba(0, 191, 255, 0.8) 50%, transparent);
+    
+    /* Lengden på lysstrålen */
+    background-size: 100% 400px;
+    background-repeat: no-repeat;
+    
+    /* ENDRING: Økt fra 5s til 8s for roligere puls */
+    animation: pulseMoveUp 8s linear infinite;
+}
+
+@keyframes pulseMoveUp {
+    0% { background-position: 0 150%; }
+    100% { background-position: 0 -400px; }
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.news-card {
+    display: flex; /* Horisontal på PC */
+    align-items: center;
+    background: rgba(255, 255, 255, 0.01); 
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.0); 
+    border-radius: 20px;
+    height: 250px; 
+    width: 100%; 
+    max-width: 650px;
+    padding: 0 15px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: default;
+}
+
+.news-card:hover {
+    transform: scale(1.02);
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(0, 191, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.news-visual {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; 
+    align-items: center;
+    transition: width 0.5s ease;
+}
+
+.news-logo {
+    max-height: 100px; /* Tvinger riktig størrelse */
+    max-width: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
+.news-date { font-size: 0.75rem; color: #00bfff; text-transform: uppercase; }
+.news-visual h3 { color: #fff; font-size: 1.1rem; white-space: nowrap; text-align: center; }
+
+.news-details {
+    opacity: 0;
+    max-width: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ccc;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.5s ease;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.news-card:hover .news-visual { width: 40%; align-items: flex-end; padding-right: 20px; }
+.news-card:hover .news-details { opacity: 1; max-width: 500px; padding-left: 20px; }
+
+/* Skjul "Se mer" på PC */
+.mobile-hint { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; 
+    color: rgba(255, 255, 255, 0.3); 
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    cursor: default; 
+}
+
+/* Skjul "Se mer" på desktop ved å sette display none på containeren om ønskelig, 
+   men her skjuler vi bare ikonet som avtalt */
+.mobile-hint { display: none; }
+
+
+/* =========================================
+   9. MOBIL-TILPASNING & FIXES (2 KOLONNER FIX)
+   ========================================= */
+
+@media (max-width: 768px) {
+    
+    /* --- GENERELT --- */
+    .news-section { padding-top: 180px; }
+    
+    /* --- TEAM / OM OSS (TVUNGET 2 I BREDDEN) --- */
+    .team-container {
+        display: flex;
+        flex-wrap: wrap;       /* Tillat bøyning */
+        flex-direction: row;   /* Sørg for at de ligger vannrett */
+        justify-content: center; 
+        gap: 10px;             /* Fast avstand mellom kortene */
+        padding: 0 5px;        /* Minimal padding på sidene */
+    }
+
+    .team-member {
+        /* Vi bruker flex-basis for å si at hvert kort skal prøve å ta ca halvparten */
+        /* 47% gir litt sikkerhetsmargin så de ikke hopper ned */
+        flex: 0 1 47%; 
+        width: 47%;
         
-        /* Sørger for at seksjoner ikke gjemmer seg bak den faste navbaren ved scrolling */
-        section {
-            scroll-margin-top: 90px; 
-        }
+        min-width: 140px;      /* Hindrer dem i å bli helt most på veldig små skjermer */
+        padding: 12px 8px;     /* Mindre padding inni kortene */
+        margin: 0;
+        box-sizing: border-box; /* Viktig: padding regnes inni bredden */
+        min-height: auto;      /* La innholdet styre høyden */
+    }
 
-        /* Struktur for forsidetekst + rulleknapp */
-        .hero-image {
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-end;
-        }
+    .team-member > img {
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
 
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 25px;
-        }
+    .team-member h3 {
+        font-size: 0.9rem;     /* Litt mindre tekst for å få plass */
+        margin: 5px 0;
+    }
+    
+    .team-member p {
+        font-size: 0.75rem;    /* Litt mindre brødtekst */
+        line-height: 1.2;
+    }
 
-        /* Den nye "Finn ut mer"-knappen */
-        .scroll-down-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #00bfff;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            background: rgba(10, 10, 10, 0.45);
-            padding: 12px 24px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            animation: bounceArrow 2s infinite;
-        }
+    .team-member .team-email {
+        font-size: 0.7rem;
+        word-break: break-all; /* Hindrer lange e-poster i å dytte ut kortet */
+    }
 
-        .scroll-down-btn:hover {
-            background: rgba(0, 191, 255, 0.2);
-            border-color: #00bfff;
-            transform: translateY(-3px);
-        }
+    .social-icon {
+        width: 20px;
+        height: 20px;
+    }
 
-        /* Hoppe-animasjon for pilen */
-        @keyframes bounceArrow {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
+    /* --- NYHETER / TIMELINE (FORBLIR SLIK DU LIKTE DEN) --- */
+    .timeline-line { display: block; width: 4px; top: 20px; bottom: 20px; left: 20px; transform: none; }
+    .timeline-container { padding: 0 10px; position: relative; }
+    .timeline-item { margin-bottom: 25px; justify-content: flex-end; padding-left: 35px; }
 
-        /* Spesifikke farger fra LaTeX-designet (Løsningen) */
-        :root {
-            --latex-cyan: #00AEEF;
-            --latex-orange: #E94E1B;
-            --latex-tech-blue-light: #66b3ff; 
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-        }
+    .news-card {
+        flex-direction: column;
+        height: auto;
+        min-height: 140px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-        /* Siden vi har alt på én side, fjerner vi min-height fra goal-containeren så det flyter bedre */
-        .latex-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            color: #eee;
-            display: grid;
-            grid-template-columns: 1.8fr 1fr;
-            overflow: hidden;
-        }
+    .news-visual { width: 100% !important; height: auto; align-items: center !important; padding: 0 !important; flex-shrink: 0; }
+    .news-logo { max-height: 60px; margin: 10px 0; }
+    .news-visual h3 { white-space: normal; text-align: center; font-size: 1.1rem; margin-bottom: 5px; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
-        .latex-main { padding: 40px; }
-        .latex-main h3 {
-            color: var(--latex-cyan);
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--glass-border);
-            margin: 30px 0 15px;
-            padding-bottom: 5px;
-            font-family: 'Comfortaa', cursive;
-        }
-        .latex-main p { color: #fff; margin-bottom: 15px; line-height: 1.6; }
-        .latex-sidebar { background-color: rgba(0, 0, 0, 0.2); padding: 40px 30px; border-left: 1px solid var(--glass-border); }
-        .latex-cta { background: rgba(255, 255, 255, 0.03); border: 2px solid var(--latex-orange); padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(233, 78, 27, 0.1); margin-bottom: 30px; }
-        .cta-title { color: var(--latex-orange); font-weight: 800; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; text-transform: uppercase; font-size: 0.9rem; }
-        .value-item { display: flex; gap: 15px; margin-bottom: 25px; text-align: left; }
-        .icon-circle { min-width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--latex-cyan); background: rgba(0, 174, 239, 0.1); display: flex; align-items: center; justify-content: center; color: var(--latex-cyan); }
-        .value-item strong { color: white; font-size: 1.05rem; }
-        .tech-data { font-size: 0.95rem; color: #ccc; text-align: left; }
-        .tech-data strong { display: block; margin-top: 15px; color: var(--latex-tech-blue-light); }
-        .image-caption { font-size: 0.8rem; color: #aaa; margin-top: 10px; font-style: italic; }
+    .news-details {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        max-width: 100% !important;
+        border: none;
+        width: 100%;
+        margin-top: 0;
+        padding-top: 0;
+        transition: grid-template-rows 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease, padding-top 0.5s ease;
+    }
 
-        /* --- STYRING AV TEAM-RUTENETTET (Overstyrer style.css på PC/Nettbrett) --- */
-        @media (min-width: 769px) {
-            #team .team-grid-pc {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important; /* 2 i bredden på nettbrett */
-                gap: 30px !important;
-                max-width: 800px;
-                margin: 0 auto;
-            }
-            #team .team-grid-pc .team-member {
-                width: 100% !important;
-                max-width: none !important;
-            }
-            #team .mentors-grid-pc {
-                display: grid !important;
-                grid-template-columns: repeat(2, minmax(280px, 400px)) !important; /* Mentorer står side om side */
-                gap: 30px !important;
-                justify-content: center;
-                max-width: 900px;
-                margin: 0 auto;
-            }
-            #team .mentors-grid-pc .team-member {
-                width: 100% !important;
-                max-width: none !important;
-            }
-        }
+    .news-content-inner { overflow: hidden; text-align: center; }
 
-        @media (min-width: 1100px) {
-            #team .team-grid-pc {
-                grid-template-columns: repeat(3, 1fr) !important; /* Nøyaktig 3 i bredden på PC (3x2 oppsett) */
-                max-width: 1200px;
-            }
-        }
+    .news-card.active { background: rgba(255, 255, 255, 0.15); border-color: #00bfff; box-shadow: 0 4px 25px rgba(0,0,0,0.4); }
+    .news-card.active .news-details { grid-template-rows: 1fr; opacity: 1; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
 
-        /* Responsivitet for mobil */
-        @media (max-width: 900px) {
-            section {
-                scroll-margin-top: 170px; /* Mer plass på mobil pga høyere navbar */
-            }
-            .hero-image {
-                align-items: center;
-            }
-            .hero-content {
-                align-items: center;
-            }
-            .latex-container {
-                grid-template-columns: 1fr;
-            }
-            .latex-sidebar {
-                border-left: none;
-                border-top: 1px solid var(--glass-border);
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="navbar">
-        <div class="logo-section">
-            <a href="#home" class="home-link">
-                <img src="images/ny_logo.png" alt="eldION logo" class="logo">
-            </a>
-        </div>
-        <nav class="nav-links">
-            <a href="#goal">Løsningen</a>
-            <a href="#team">Om oss</a>
-            <a href="#news">Nyheter</a>
-            <a href="#contact">Kontakt oss</a>
-        </nav>
-    </header>
-
-    <main>
-        <div id="home" style="scroll-margin-top: 0;">
-            <div class="hero-image">
-                <div class="hero-content">
-                    <h1 class="hero-text">Vi gjør industrien trådløs, mer effektiv og genuint grønnere.</h1>
-                    <a href="#goal" class="scroll-down-btn">
-                        <span>Finn ut mer</span>
-                        <i data-lucide="chevron-down"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <section id="goal" class="page-content fade-in">
-            <div class="latex-container">
-                <article class="latex-main">
-                    <h2 style="font-family: 'Comfortaa'; color: white; margin-bottom: 10px; margin-top:0; text-align: left;">Fremtidens Målinger</h2>
-                    <p style="font-size: 1.1rem; color: #aaa; margin-bottom: 30px; text-align: left;"><i>Trådløs overvåking uten batterier – drevet av spillvarme.</i></p>
-
-                    <h3>Utfordringen</h3>
-                    <p><strong>En sentral målsetning for Industri 4.0</strong> er heldekkende trådløs overvåking, men infrastrukturen henger etter. Kabling er kostbart, miljøbelastende og en hyppig feilkilde.</p>
-                    <p>Dagens trådløse alternativer er avhengige av batterier, noe som krever hyppige batteribytter eller store kompromisser: For å spare strøm reduseres sendefrekvensen, og man mister verdifull sanntidsinnsikt.</p>
-
-                    <h3>Vår løsning:</h3>
-                    <p>eldION utnytter tapt spillvarme til å generere strøm via termoelektrisk effekt. Enheten drifter og leser av data fra ethvert <strong>standard 2-wire 4-20mA HART-instrument</strong> – uavhengig av leverandør – og sender målingene trådløst videre.</p>
-
-                    <div style="text-align: center; margin: 30px 0;">
-                        <img src="images/skisse3.png" alt="eldION skisse" style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);" onerror="this.src='https://via.placeholder.com/500x250?text=eldION+3D+Render'">
-                        <p class="image-caption">Plug & Play installasjon uten driftsstans.</p>
-                    </div>
-
-                    <h3>Hvorfor velge oss?</h3>
-                    
-                    <div class="value-item">
-                        <div class="icon-circle"><i data-lucide="coins"></i></div>
-                        <div>
-                            <strong>Reduser installasjonskostnader:</strong><br>
-                            Industriell kabling har ofte en kostnad på 800–1200 kr per meter. Med vår løsning fjerner du denne utgiften fullstendig.
-                        </div>
-                    </div>
-
-                    <div class="value-item">
-                        <div class="icon-circle"><i data-lucide="leaf"></i></div>
-                        <div>
-                            <strong>Redusert karbonavtrykk:</strong><br>
-                            Ved å unngå en enkel kabelinstallasjon på 40 meter, sparer vi miljøet for 100 kg CO<sub>2</sub>.
-                        </div>
-                    </div>
-
-                    <div class="value-item">
-                        <div class="icon-circle"><i data-lucide="timer"></i></div>
-                        <div>
-                            <strong>Trådløst i sanntid:</strong><br>
-                            Vi leverer ekte sanntidsdata med mulighet for sub-sekund oppdateringer, der andre må spare på batteriet.
-                        </div>
-                    </div>
-                </article>
-
-                <aside class="latex-sidebar">
-                    <div class="latex-cta">
-                        <div class="cta-title">
-                            <i data-lucide="rocket"></i> Forme fremtiden?
-                        </div>
-                        <p style="font-size: 0.9rem; color: #ddd; text-align: left;">Vi søker innovative partnere for <strong>pilottesting</strong>. Alt vi trenger er en ΔT på >30°C.</p>
-                        <p style="font-size: 0.9rem; color: #ddd; text-align: left;"><strong>Vi tilbyr:</strong> Gratis installasjon og utstyr.</p>
-                        <p style="text-align: center; font-weight: bold; color: var(--latex-orange); margin-top: 15px;">Ta kontakt for en prat!</p>
-                    </div>
-
-                    <h4 style="color: var(--latex-cyan); border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; text-align: left;">Tekniske Data</h4>
-                    <div class="tech-data">
-                        <strong>Temperaturområde:</strong>
-                        Overflate: 30°C – 250°C<br>
-                        Omgivelse: -20°C – 50°C
-
-                        <strong>Effekt ut:</strong>
-                        Testet opp til 868 mW
-
-                        <strong>Kommunikasjon:</strong>
-                        LoRaWAN, WirelessHART, ISA100.11a, BLE
-
-                        <strong>Montering:</strong>
-                        Clamp-on eller magnetisk. Ingen inngrep i prosessen.
-                    </div>
-
-                    <h4 style="color: var(--latex-cyan); border-bottom: 1px solid var(--glass-border); padding-bottom: 5px; margin-top: 40px; text-align: left;">Fleksibel montering</h4>
-                    <div style="text-align: center; margin-top: 15px;">
-                        <img src="images/montering.png" alt="Montering" style="max-width: 100%; opacity: 0.9;" onerror="this.src='https://via.placeholder.com/200x150?text=Skisse'">
-                        <p class="image-caption">Overflatemontering</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section id="team" class="team-section">
-            <h2>Teamet bak eldION</h2>
-            <div class="team-container team-grid-pc">
-
-                <div class="team-member fade-in">
-                    <img src="images/joar.jpg" alt="Joar Dale Landa" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Joar'; this.onerror=null;">
-                    <h3>Joar Dale Landa</h3>
-                    <p class="team-email"><a href="mailto:Joar@eldion.no">Joar@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Sivilingeniør i industriell økonomi (UiS), med fagbrev som automatiker fra Norsk Hydro. Har erfaring som automasjonsingeniør hos Siemens Energy.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/joar-landa-699664137/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/vetle.jpg" alt="Vetle Gjerver" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Vetle'; this.onerror=null;">
-                    <h3>Vetle Gjerver</h3>
-                    <p class="team-email"><a href="mailto:Vetle@eldion.no">Vetle@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Sivilingeniør i robotteknologi og signalbehandling (UiS), med fagbrev som automatiker fra Borregaard. Har erfaring som metering og robotikkingeniør hos Aker Solutions.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/vetle-gjerver/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/havard.jpg" alt="Håvard Syslak" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Håvard'; this.onerror=null;">
-                    <h3>Håvard Syslak</h3>
-                    <p class="team-email"><a href="mailto:Haavard@eldion.no">Havard@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Sivilingeniør i kybernetikk (NTNU), med fagbrev som automatiker. Har erfaring som Embedded & Electronics Engineer hos Blueye Robotics.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/h%C3%A5vard-syslak-2956ab176/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/harald.jpg" alt="Harald Domås" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Harald'; this.onerror=null;">
-                    <h3>Harald Domås</h3>
-                    <p class="team-email"><a href="mailto:Harald@eldion.no">Harald@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Sivilingeniør i robotteknologi og signalbehandling (UiS), med fagbrev som avioniker. Har erfaring som R&D Project Engineer hos ABB Robotics.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/harald-dom%C3%A5s-91b324205/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/aiken.jpg" alt="Aiken Midttveit" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Aiken'; this.onerror=null;">
-                    <h3>Aiken Midttveit</h3>
-                    <p class="team-email"><a href="mailto:Aiken@eldion.no">Aiken@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Sivilingeniør i robotteknologi og signalbehandling (UiS), med fagbrev som automatiker. Har erfaring som R&D-elektronikkutvikler hos ABB Robotics.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/aiken-midttveit-913b01264/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/kristoffer.jpg" alt="Kristoffer Tufta" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Kristoffer'; this.onerror=null;">
-                    <h3>Kristoffer Tufta</h3>
-                    <p class="team-email"><a href="mailto:Kristoffer@eldion.no">Kristoffer@eldion.no</a></p>
-                    <div class="team-info-content">
-                        <p>Siviløkonomstudent (HVL) innen Master of Business Administration - MBA, Regional Economics and Innovation. Har erfaring som labassistent fra Norsk Hydro.</p>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/kristoffertufta/" target="_blank" rel="noopener noreferrer">
-                            <img src="images/linkedin.png" alt="LinkedIn Profil" class="social-icon" onerror="this.src='https://placehold.co/24x24/0A66C2/FFF?text=in'; this.onerror=null;">
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <h2 style="margin-top: 80px;">Våre mentorer</h2>
-            <div class="team-container mentors-grid-pc">
-                <div class="team-member fade-in">
-                    <img src="images/kristian.jpg" alt="Kristian Thorsen" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Kristian'; this.onerror=null;">
-                    <h3>Kristian Thorsen</h3>
-                    <p class="team-email" style="color: #00bfff; font-weight: bold;">Akademisk mentor</p>
-                    <div class="team-info-content" style="justify-content: flex-start;">
-                        <p style="font-weight: 600; margin-bottom: 10px;">Førsteamanuensis ved Universitetet i Stavanger (UiS)</p>
-                        <p>Har dyptgående ekspertise innen elektronikkutvikling, robotikk og reguleringsteknikk.</p>
-                        <p>Bidrar med faglig tyngde og kvalitetssikring i utviklingen av de tekniske løsningene.</p>
-                    </div>
-                </div>
-
-                <div class="team-member fade-in">
-                    <img src="images/stig.jpg" alt="Stig Bruntveit" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Stig'; this.onerror=null;">
-                    <h3>Stig Bruntveit</h3>
-                    <p class="team-email" style="color: #00bfff; font-weight: bold;">Kommersiell mentor</p>
-                    <div class="team-info-content" style="justify-content: flex-start;">
-                        <p style="font-weight: 600; margin-bottom: 10px;">Direktør på Elkem Bjølvefossen</p>
-                        <p>Har lang operasjonell ledererfaring, med 14 års bakgrunn fra olje & gass, samt bred erfaring fra aluminiumsindustrien og maritim sektor.</p>
-                        <p>Bidrar med inngående forståelse for kundenes behov og åpner dører til relevante industrielle miljøer.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="news" class="news-section fade-in">
-            <h2 style="font-family: 'Comfortaa', sans-serif; font-size: 2em; text-align: center; margin-bottom: 50px;">Vår tidslinje</h2>
-            
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">21. Apr 2026</span>
-                            <img src="images/logo2.png" alt="Eldion" class="news-logo" style="height: 50px; width:auto;">
-                            <h3>Betydelig styrking av teamet</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Vi har gleden av å ønske Håvard, Harald, Aiken og Kristoffer velkommen til Eldion. Denne utvidelsen gir oss et kraftig kapasitetsløft og tilfører kritisk spisskompetanse; både for å akselerere den tekniske utviklingen og for å styrke selskapets kommersielle fundament.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">02. Apr 2026</span>
-                            <img src="images/innovasjon_norge.png" alt="Innovasjon Norge" class="news-logo">
-                            <h3>Tildelt 1 million i STUD-ENT-midler</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Eldion mottar 1 million kroner i finansiell støtte gjennom Innovasjon Norges STUD-ENT-program. Tildelingen markerer en viktig milepæl i selskapets kommersialiseringsløp og sikrer kapital til videre teknologiutvikling. Midlene vil blant annet benyttes til å fasilitere og gjennomføre den kommende pilottestingen i samarbeid med Hydro Aluminium AS på Husnes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">04. Feb 2026</span>
-                            <img src="images/hydro.png" alt="Hydro" class="news-logo">
-                            <h3>Pilotavtale med Hydro Aluminium AS</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Eldion signerer samarbeidsavtale om et FoU-testprosjekt med Hydro Aluminium AS. Avtalen gir oss tilgang til å teste teknologien i full skala ved smelteverket på Husnes. Dette er en kritisk validering fra en global industriaktør og markerer starten på den industrielle utrullingen.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">29. Jan 2026</span>
-                            <img src="images/uis.png" alt="UiS" class="news-logo">
-                            <h3>Samarbeidsavtale med UiS & Akademisk Mentor</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Vi inngår samarbeidsavtale med Universitetet i Stavanger som sikrer tilgang til avanserte elektronikk- og prosesslaboratorier samt ressurser ved Lyspæren innovasjonshus. Samtidig fornyes mentoravtalen med Førsteamanuensis Kristian Thorsen, en ekspert innen elektronikk og robotikk, som kvalitetssikrer den tekniske utviklingen.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">25. Nov 2025</span>
-                            <img src="images/elkem.png" alt="Elkem" class="news-logo">
-                            <h3>Industritung mentor ombord</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Stig Bruntveit, Direktør ved Elkem Bjølvefossen, engasjeres som kommersiell mentor. Med 14 års ledererfaring fra olje, gass og aluminiumsindustrien, bidrar han med dyp operasjonell innsikt og åpner dører til relevante industrielle miljøer og pilotkunder.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">31. Okt 2025</span>
-                            <img src="images/innovasjon_norge.png" alt="Innovasjon Norge" class="news-logo">
-                            <h3>Tilskudd fra Innovasjon Norge</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Eldion mottar oppstartstilskudd fra Innovasjon Norge. Tildelingen validerer at forretningsidéen har betydelig nasjonalt og internasjonalt markedspotensial. Midlene dedikeres til å kartlegge betalingsvilje og sikre de første pilotkundene.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">01. Sep 2025</span>
-                            <img src="images/logo2.png" alt="eldION" class="news-logo" style="height: 50px; width:auto;">
-                            <h3>Teamet utvides</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Joar Dale Landa trer inn som CFO og medeier. Med bakgrunn fra industriell økonomi og erfaring fra olje- og industrisektoren, tilfører han strategisk tyngde som ruster selskapet for kommersiell skalering.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">15. Jun 2025</span>
-                            <img src="images/chip_icon.png" alt="MVP" class="news-logo">
-                            <h3>Vellykket Proof of Concept</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Masteroppgaven leveres med en fungerende prototype (MVP) som beviser teknologiens kjernefunksjon. Gjennom omfattende tester demonstreres "energy positive" drift: Systemet høster mer energi fra spillvarme enn det forbruker, og bekrefter at en batteriløs fremtid is teknisk gjennomførbar.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">07. Jan 2025</span>
-                            <img src="images/plogen.png" alt="Plogen" class="news-logo">
-                            <h3>Tildelt Plogen-midler</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Prosjektet mottar støtte fra Plogen-programmet, et initiativ fra Validé og UiS som finansierer forskningsbasert innovasjon med kommersielt potensial. Midlene finansierer materialer til utvikling av vår første prototype.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="news-card">
-                        <div class="news-visual">
-                            <span class="news-date">04. Nov 2024</span>
-                            <img src="images/logo2.png" alt="eldION" class="news-logo" style="height: 50px; width:auto;">
-                            <h3>Eldion AS stiftes</h3>
-                            <div class="mobile-hint"><span>Se mer</span></div>
-                        </div>
-                        <div class="news-details">
-                            <div class="news-content-inner">
-                                <p>Selskapet etableres formelt for å kommersialisere teknologien som utvikles gjennom en masteroppgave ved UiS. Visjonen er klar: Å digitalisere industrien ved å fjerne behovet for batterier og kabler.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact-page">
-            <h1>Kontakt oss</h1>
-            <p class="intro-text">Vi vil gjerne høre fra deg – enten du har spørsmål, forslag eller ønsker samarbeid.</p>
-
-            <form action="https://formspree.io/f/xzzknewz" method="POST" class="fade-in">
-                <div>
-                    <label for="topic">Hva gjelder det?</label>
-                    <select id="topic" name="topic" required>
-                        <option value="">Velg kategori</option>
-                        <option value="investering">Investering</option>
-                        <option value="samarbeid">Samarbeid</option>
-                        <option value="pilotprosjekt">Pilotprosjekt</option>
-                        <option value="kundeforespørsel">Kundeforespørsel</option>
-                        <option value="teknisk">Teknisk henvendelse</option>
-                        <option value="annet">Annet</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="name">Hvem er du?</label>
-                    <input type="text" id="name" name="name" placeholder="Navn eller firmanavn" required>
-                </div>
-
-                <div>
-                    <label for="email">E-post</label>
-                    <input type="email" id="email" name="email" placeholder="Din e-postadresse" required>
-                </div>
-
-                <div>
-                    <label for="message">Melding</label>
-                    <textarea id="message" name="message" placeholder="Skriv meldingen din her..." required></textarea>
-                </div>
-
-                <button type="submit">Send</button>
-            </form>
-
-            <div class="contact-info">
-                <p>Du kan også nå oss på telefon: <strong>(+47) 482 04 754</strong></p>
-            </div>
-        </section>
-        </section> <section class="trust-section fade-in" style="text-align: center; padding: 80px 20px 40px; margin: 0 auto; max-width: 1000px;">
-            <h2 style="font-family: 'Comfortaa', sans-serif; font-size: 1.2rem; color: #aaa; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px;">Med tillit fra:</h2>
-            
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(30px, 5vw, 60px);">
-                
-                <img src="images/innovasjon_norge.png" alt="Innovasjon Norge" style="max-height: 60px; width: auto; opacity: 0.6; transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.transform='scale(1.05)'" onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'">
-                
-                <img src="images/hydro.png" alt="Hydro Aluminium" style="max-height: 60px; width: auto; opacity: 0.6; transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.transform='scale(1.05)'" onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'">
-                
-                <img src="images/elkem.png" alt="Elkem" style="max-height: 50px; width: auto; opacity: 0.6; transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.transform='scale(1.05)'" onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'">
-                
-                <img src="images/Eramet.png" alt="Eramet" style="max-height: 50px; width: auto; opacity: 0.6; transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.transform='scale(1.05)'" onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'">
-                
-                <img src="images/uis.png" alt="Universitetet i Stavanger" style="max-height: 60px; width: auto; opacity: 0.6; transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.transform='scale(1.05)'" onmouseout="this.style.opacity='0.6'; this.style.transform='scale(1)'">
-                
-            </div>
-        </section>
-        </main>
-
-    <footer class="site-footer">
-    </main>
-
-    <footer class="site-footer">
-        <p>eldION AS | Kontakt@eldion.no | +47 48204754</p>
-        <p>© 2025</p>
-    </footer>
-
-    <script>
-        // Start Lucide ikoner
-        lucide.createIcons();
-
-        // Skript for nyhetskort (ekspandering ved klikk på mobil)
-        const cards = document.querySelectorAll('.news-card');
-        cards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                if(e.target.tagName === 'A') return;
-                const isAlreadyActive = this.classList.contains('active');
-                cards.forEach(c => c.classList.remove('active'));
-                if (!isAlreadyActive) {
-                    this.classList.add('active');
-                    setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 300);
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+    .mobile-hint {
+        display: block;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+    
+    /* Sikrer at ikonet (hvis det finnes i HTML) ikke vises */
+    .mobile-hint i { display: none; }
+}
