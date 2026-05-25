@@ -7,6 +7,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="images/logo2.png" type="image/png">
+
+    <style>
+        /* Grunnleggende rutenett-oppsett */
+        .team-container {
+            display: grid;
+            gap: 30px;
+            max-width: 1200px; /* Begrenser totalbredden slik at det ikke blir for strukket */
+            margin: 0 auto;
+        }
+
+        /* Mobiltelefon: 1 kort per rad (Standard uten medie-spørring) */
+        .team-container {
+            grid-template-columns: 1fr;
+        }
+
+        /* Nettbrett: 2 kort per rad */
+        @media (min-width: 768px) {
+            .team-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* PC-skjerm: Nøyaktig 3 kort per rad */
+        @media (min-width: 1100px) {
+            .team-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -66,7 +95,7 @@
                 <p class="team-email"><a href="mailto:Kristoffer@eldion.no">Kristoffer@eldion.no</a></p>
                 
                 <div class="team-info-content">
-                    <p>MSc Business student (HVL). Har erfaring som lab assistent fra Norsk Hydro.</p>
+                    <p>Siviløkonomstudent (HVL). Har erfaring som labassistent fra Norsk Hydro.</p>
                 </div>
                 
                 <div class="social-links">
@@ -82,7 +111,7 @@
                 <p class="team-email"><a href="mailto:Harald@eldion.no">Harald@eldion.no</a></p>
                 
                 <div class="team-info-content">
-                    <p>MSc Robotteknologi og Signalbehandling (UiS), med fagbrev som avioniker. Har erfaring som R&D Project Engineer hos ABB Robotics.</p>
+                    <p>Sivilingeniør i robotteknologi og signalbehandling (UiS), med fagbrev som avioniker. Har erfaring som R&D Project Engineer hos ABB Robotics.</p>
                 </div>
                 
                 <div class="social-links">
@@ -98,7 +127,7 @@
                 <p class="team-email"><a href="mailto:Aiken@eldion.no">Aiken@eldion.no</a></p>
                 
                 <div class="team-info-content">
-                    <p>MSc Robotteknologi og Signalbehandling (UiS), med fagbrev som automatiker. Har erfaring som R&D Elektronikkutvikler hos ABB Robotics.</p>
+                    <p>Sivilingeniør i robotteknologi og signalbehandling (UiS), med fagbrev som automatiker. Har erfaring som R&D-elektronikkutvikler hos ABB Robotics.</p>
                 </div>
                 
                 <div class="social-links">
@@ -114,7 +143,7 @@
                 <p class="team-email"><a href="mailto:Havard@eldion.no">Havard@eldion.no</a></p>
                 
                 <div class="team-info-content">
-                    <p>MSc Kybernetikk (NTNU), med fagbrev som automatiker. Har erfaring som Embedded & Electronics Engineer hos Blueye Robotics.</p>
+                    <p>Sivilingeniør i kybernetikk (NTNU), med fagbrev som automatiker. Har erfaring som Embedded & Electronics Engineer hos Blueye Robotics.</p>
                 </div>
                 
                 <div class="social-links">
@@ -127,7 +156,7 @@
         </div>
 
         <h2 style="margin-top: 80px;">Våre mentorer</h2>
-        <div class="team-container">
+        <div class="team-container" style="justify-content: center; grid-template-columns: repeat(auto-fit, minmax(280px, 400px));">
 
             <div class="team-member fade-in">
                 <img src="images/kristian.jpg" alt="Kristian Thorsen" onerror="this.src='https://placehold.co/280x280/EEE/333?text=Kristian'; this.onerror=null;">
